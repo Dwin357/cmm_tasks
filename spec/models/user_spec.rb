@@ -1,5 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "associations" do
+    it "has many tasks" do
+      subject = User.reflect_on_association(:tasks)
+      expect(subject.macro).to eq(:has_many)
+    end
+  end
 end
