@@ -44,7 +44,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = user_from_params!
+    @user  = user_from_params!
+    @tasks = @user.tasks
   end
 
   def destroy

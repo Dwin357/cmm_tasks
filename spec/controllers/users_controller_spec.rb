@@ -187,11 +187,17 @@ RSpec.describe UsersController, type: :controller do
     end  
 
 
-    # describe "GET #show" do
-    #   it "redirects to new session path" do
-    #     get :show, id:1
-    #     expect(response).to redirect_to(new_session_path)
-    #   end
-    # end
+    describe "GET #show" do
+      it "renders show page" do
+        get :show, id:current_user
+        expect(response).to render_template(:show)
+      end
+      it "assigns users tasks" do
+        expected = current_user.tasks
+        get :show, id:current_user
+        expect(assigns(:tasks)).to eq(expected)
+        expect(assigns(:user)).to eq(current_user)
+      end
+    end
   end
 end
