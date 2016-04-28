@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SessionsHelper, type: :helper do
-  before :each do
+  before :each do 
     @user = FactoryGirl.create(:user)
   end
   after :each do
