@@ -4,9 +4,9 @@ RSpec.describe UsersController, type: :controller do
 
   context 'when not logged in' do
     describe "GET #new" do
-      it "redirects to new session path" do
+      it 'renders new user page' do
         get :new
-        expect(response).to redirect_to(new_session_path)
+        expect(response).to render_template("new")
       end
     end
     describe "GET #edit" do
@@ -34,12 +34,7 @@ RSpec.describe UsersController, type: :controller do
       logout
     end
 
-    describe "GET #new" do
-      it 'renders new user page' do
-        get :new
-        expect(response).to render_template("new")
-      end
-    end
+    
   end
 
 end
