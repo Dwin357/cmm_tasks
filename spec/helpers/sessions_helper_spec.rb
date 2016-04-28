@@ -48,7 +48,7 @@ RSpec.describe SessionsHelper, type: :helper do
 
   describe "#current_user!" do
     it "blows up if session isn't set" do
-      expect{ current_user! }.to raise_error
+      expect{ current_user! }.to raise_error(ActiveRecord::RecordNotFound)
     end
     it "returns the user if session is set" do
       login(@user)

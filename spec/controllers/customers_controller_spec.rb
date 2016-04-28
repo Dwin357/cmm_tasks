@@ -32,12 +32,8 @@ RSpec.describe CustomersController, type: :controller do
 
   context 'when not logged in' do    
     include SessionsHelper
-    before :each do
-      login(FactoryGirl.create(:user))
-    end
-    after :each do
-      logout
-    end
+    before :each do login(FactoryGirl.create(:user)) end
+    after :each do logout end
 
     describe "GET #new" do
       it 'renders new customers page' do
