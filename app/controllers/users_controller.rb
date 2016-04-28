@@ -29,8 +29,8 @@ class UsersController < ApplicationController
 
   def update
     if valid_edit?
-      @user = current_user!.assign_attributes(user_params)
-      if @user.save
+      @user = user_from_params!
+      if @user.update(user_params)
         redirect_to user_path(@user)
       else
         flash[:errors] = @user.errors.full_messages
@@ -44,14 +44,14 @@ class UsersController < ApplicationController
   end
 
   def show
-
+    @user = user_from_params!
   end
 
   def destroy
     if valid_destroy?
-      @user = user_from_params
+      @user = user_from_params!
       @user.destroy
-      logout(@user)
+      logout
       redirect_to root_path
     else
       flash[:errors] = ["invalid destroy permission"]
@@ -64,13 +64,17 @@ class UsersController < ApplicationController
     params.require(:user).permit(:username, :password, :email)
   end
 
+  def user_from_params!
+    @usr_from_param ||= User.find(params[:id])
+  end
+
   def valid_edit?
     # this can be more complicated if needed
-    current_user
+    current_user == user_from_params!
   end
 
   def valid_destroy?
     # this can be more complicated if needed
-    current_user
+    current_user == user_from_params!
   end
 end

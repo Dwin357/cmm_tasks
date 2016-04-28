@@ -73,12 +73,8 @@ RSpec.describe UsersController, type: :controller do
 
 
   context 'when logged in' do
-    before :each do
-      login(FactoryGirl.create(:user))
-    end
-    after :each do
-      logout
-    end
+    before :each do login(FactoryGirl.create(:user)) end
+    after  :each do logout end
 
     describe "GET #edit" do
       context "with valid edit permissions" do
@@ -109,25 +105,29 @@ RSpec.describe UsersController, type: :controller do
       # end
     end
     describe "POST #update" do
+      before :each do
+        @sbj        = current_user!
+        @comparison = FactoryGirl.build(:alt_user)
+      end
+      after :each do
+        @sbj        = nil
+        @comparison = nil
+      end
       context "with valid edit permissions" do
         context "with valid model params" do
-          # it "updates model attributes" do
-          #   edited_user = current_user!
-          #   edited_user.username = "Bruce"
-          #   post :update, user:edited_user
-          #   expect(current_user).to eq(edited_user)
-          # end
-
-
-# NOT WORKING, NOT CLEAR WHY
-
-
-
+          it "locates the correct user" do
+            put :update, id: @sbj, user: FactoryGirl.attributes_for(:alt_user)
+            expect(assigns(:user)).to eq(@sbj)
+          end
+          it "updates model attributes" do
+            put :update, id: @sbj, user: FactoryGirl.attributes_for(:alt_user)
+            @sbj.reload
+            expect(@sbj.username).to eq(@comparison.username)
+            expect(@sbj.email).to eq(@comparison.email)
+          end
           it "redirects to user show" do
-            post :update, id:current_user.id, user:{username: "Bruce"}
-
-            # post :update, id:edited_user.id
-            expect(response).to redirect_to(user_path(User.last))
+            put :update, id: @sbj, user: FactoryGirl.attributes_for(:alt_user)
+            expect(response).to redirect_to(user_path(@sbj))
           end 
         end
         # #no validations, not possible to have "invalid" model params
@@ -165,17 +165,26 @@ RSpec.describe UsersController, type: :controller do
     end
 
 
-    # describe "DELETE #destroy" do
-    #   context "with valid destroy permissions" do
-    #     it "redirects to new session path" do
-    #       delete :destroy, id:1
-    #       expect(response).to redirect_to(new_session_path)
-    #     end
-    #   end
-    #   context "with invalid destroy permissions"
-    #   #currently destroy permissions compares current_user w/ user_from params 
-    #   #since these are parallel processes, it is always valid      
-    # end  
+    describe "DELETE #destroy" do
+      context "with valid destroy permissions" do
+        it "removes the record from db" do
+          expect{
+            delete :destroy, id: current_user
+          }.to change(User, :count).by(-1)
+        end
+        it "clears user session" do
+          delete :destroy, id: current_user
+          expect(session[:user_id]).to be nil
+        end
+        it "redirects to new session path" do
+          delete :destroy, id: current_user
+          expect(response).to redirect_to(root_path)
+        end
+      end
+      # context "with invalid destroy permissions"
+      # #currently destroy permissions compares current_user w/ user_from params 
+      # #since these are parallel processes, it is always valid      
+    end  
 
 
     # describe "GET #show" do
