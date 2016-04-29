@@ -15,6 +15,7 @@ class SessionsController < ApplicationController
     else
       flash[:data]   = {username: session_params[:username]}
       flash[:errors] = ["invalid username-password combination"]
+      @navbar_off = true
       render "new"
     end
   end

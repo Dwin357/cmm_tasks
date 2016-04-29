@@ -6,7 +6,7 @@
       type='text' 
       name='session[username]' 
       placeholder='AwesomeSauce' 
-      <%= "value='#{session[:username]}'" if session[:username]%>
+      <%= "value=#{session[:username]}" if session[:username]%>
     >
   </div>
   <div class='form-group'>

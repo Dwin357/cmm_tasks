@@ -1,0 +1,4 @@
+<% content_for :left_gutter do %>
+  <%= to_html(content[:html]) if content[:html] %>
+  <%= wrap(content[:text], (content[:tag] || "p")) if content[:text] %>
+<% end %>

@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   skip_before_action :require_login, only: [:new, :create]
 
   def new
+    flash[:errors] = nil
     @navbar_off = true
     @user = User.new
   end
@@ -13,6 +14,7 @@ class UsersController < ApplicationController
       redirect_to user_path(@user)
     else
       flash[:errors] = @user.errors.full_messages
+      @navbar_off = true
       render "new"
     end
   end
