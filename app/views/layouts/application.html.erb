@@ -11,7 +11,24 @@
 </head>
 <body>
 
-<%= yield %>
+  <div class='container-fluid'>
+    <%= render partial: "shared/nav_bar" unless @navbar_off %>
+    <div class='row layout-row' id='layout-row'>
+
+      <div class='col-xs-3 left-gutter' id='layout-left-gutter'>
+        <%= yield(:left_gutter) %>
+      </div>
+
+      <div class='col-xs-6 center-gutter' id='layout-center-gutter'>
+        <%= yield %>
+      </div>
+
+      <div class='col-xs-3 right-gutter' id='layout-right-gutter'>
+        <%= yield(:right_gutter) %>
+      </div>
+      
+    </div>
+  </div>
 
 </body>
 </html>
