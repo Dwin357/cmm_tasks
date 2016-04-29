@@ -138,5 +138,19 @@ RSpec.describe CustomersController, type: :controller do
       end
       # context "no model validations yet"
     end
+
+    describe "POST #create" do
+      context "with valid model params" do
+        it "saves new customer to db" do
+          expect{
+            post :create, customer: FactoryGirl.attributes_for(:customer)
+          }.to change(Customer, :count).by(1)
+        end
+        it "redirects to new customer's show page" do
+          post :create, customer: FactoryGirl.attributes_for(:customer)
+          expect(response).to redirect_to(customer_path(Customer.last))
+        end
+      end
+    end
   end
 end
