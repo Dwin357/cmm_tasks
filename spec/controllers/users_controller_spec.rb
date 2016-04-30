@@ -192,12 +192,6 @@ RSpec.describe UsersController, type: :controller do
         get :show, id:current_user
         expect(response).to render_template(:show)
       end
-      it "assigns users tasks" do
-        expected = current_user.tasks
-        get :show, id:current_user
-        expect(assigns(:tasks)).to eq(expected)
-        expect(assigns(:user)).to eq(current_user)
-      end
     end
   end
 end

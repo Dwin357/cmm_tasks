@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include ApplicationHelper
 
-  before_action :require_login
+  before_action :wipe_flash, :require_login
 
   private
   def require_login
@@ -12,5 +12,9 @@ class ApplicationController < ActionController::Base
       flash[:errors] = ["you must log in first"]
       redirect_to new_session_path
     end
+  end
+
+  def wipe_flash
+    flash[:errors] = nil
   end
 end

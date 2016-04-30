@@ -31,6 +31,9 @@ gem 'rails_best_practices'
 gem 'brakeman'
 gem 'bootstrap-sass', '~>3.3.6'
 
+group :test do
+  gem 'database_cleaner'
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

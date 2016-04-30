@@ -32,7 +32,7 @@ RSpec.describe CustomersController, type: :controller do
 
   context 'when logged in' do    
     include SessionsHelper
-    before :each do login(FactoryGirl.create(:user)) end
+    before :each do login(FactoryGirl.create(:user))end
     after  :each do logout end
 
     describe "GET #new" do
@@ -107,7 +107,7 @@ RSpec.describe CustomersController, type: :controller do
       end
       it "redirects to current user show pg" do
         delete :destroy, id:@cus
-        expect(response).to redirect_to(user_path(current_user!))
+        expect(response).to redirect_to(customers_path)
       end
     end 
 
