@@ -1,8 +1,14 @@
 FactoryGirl.define do
   factory :task do
-    project_id 1
-    user_id 1
-    task_name "MyString"
+    task_name "Patrol dark alleys"
+    project
+    user
+  end
+
+  factory :alt_task, class: Task do
+    task_name "Visit Com. Gordon"
+    project
+    user
   end
 
 end

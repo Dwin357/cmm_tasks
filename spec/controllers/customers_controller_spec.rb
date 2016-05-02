@@ -122,7 +122,7 @@ RSpec.describe CustomersController, type: :controller do
           @sbj = nil
           @comparison = nil
         end
-        it "locates the correct user" do
+        it "locates the correct customer" do
           put :update, id:@sbj, customer:FactoryGirl.attributes_for(:alt_customer)
           expect(assigns(:customer)).to eq(@sbj)
         end

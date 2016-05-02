@@ -38,13 +38,11 @@ class CustomersController < ApplicationController
   end
 
   def show   
-    @customer = Customer.find(params[:id])
+    @customer = Customer.includes(:projects).find(params[:id])
   end
 
   private
   def customer_params
     params.require(:customer).permit(:company, :address, :city, :state, :zip)
   end
-
-
 end
