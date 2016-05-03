@@ -1,0 +1,5 @@
+<li class='list-group-item task-list'>
+  <%= link_to task.task_name, task_path(task) %>
+  <span class='badge'><%= task.task_entries.count %></span>
+</li>
+

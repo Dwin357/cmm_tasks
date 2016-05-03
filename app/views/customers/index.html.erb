@@ -5,7 +5,7 @@
     </div>
     <ul class='list-group'>
       <% @customers.each do |customer| %>
-        <%= render partial: "display_customer", locals:{customer:customer}%>
+        <%= render partial: "customer_line_item", locals:{customer:customer}%>
       <% end %>
     </ul>
   </div>

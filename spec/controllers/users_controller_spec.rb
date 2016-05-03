@@ -18,6 +18,14 @@ RSpec.describe UsersController, type: :controller do
             post :create, user: FactoryGirl.attributes_for(:user)
           }.to change(User, :count).by(1)
         end
+        it "correctly saves the data" do
+          post :create, user: FactoryGirl.attributes_for(:user)
+          # hardset b/c bcrypt password methods include salts
+          subject = User.last
+          comparison = FactoryGirl.attributes_for(:user)
+          comparison[:password] = subject.password_digest
+          expect(subject).to have_attributes(comparison)
+        end
         it "logs in new user" do
           post :create, user: FactoryGirl.attributes_for(:user)
           expect(User.last).to eq(current_user!)
@@ -105,14 +113,9 @@ RSpec.describe UsersController, type: :controller do
       # end
     end
     describe "POST #update" do
-      before :each do
-        @sbj        = current_user!
-        @comparison = FactoryGirl.build(:alt_user)
-      end
-      after :each do
-        @sbj        = nil
-        @comparison = nil
-      end
+      before :each do @sbj = current_user! end
+      after  :each do @sbj = nil end
+
       context "with valid edit permissions" do
         context "with valid model params" do
           it "locates the correct user" do
@@ -122,8 +125,10 @@ RSpec.describe UsersController, type: :controller do
           it "updates model attributes" do
             put :update, id: @sbj, user: FactoryGirl.attributes_for(:alt_user)
             @sbj.reload
-            expect(@sbj.username).to eq(@comparison.username)
-            expect(@sbj.email).to eq(@comparison.email)
+            # hardset b/c bcrypt password methods include salts
+            comparison = FactoryGirl.attributes_for(:alt_user)
+            comparison[:password] = @sbj.password_digest
+            expect(@sbj).to have_attributes(comparison)
           end
           it "redirects to user show" do
             put :update, id: @sbj, user: FactoryGirl.attributes_for(:alt_user)

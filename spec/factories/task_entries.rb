@@ -1,8 +1,13 @@
-# FactoryGirl.define do
-#   factory :task_entry do
-#     task_id 1
-#     duration 1
-#     note "MyString"
-#   end
+FactoryGirl.define do
+  factory :task_entry do
+    task
+    duration 600 #I imagine this as in seconds
+    note "check lower wacker and columbus"
+  end
 
-# end
+  factory :alt_task_entry, class: TaskEntry do
+    task
+    duration 100
+    note "moment to brood"
+  end
+end

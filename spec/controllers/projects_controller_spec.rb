@@ -111,11 +111,9 @@ RSpec.describe ProjectsController, type: :controller do
           expect(assigns(:project)).to eq(@prj)
         end
         it 'updates model attributes' do
-          comparison = FactoryGirl.build(:alt_project)
-          comparison.id = @prj.id
           put :update, id:@prj, project: FactoryGirl.attributes_for(:alt_project)
           @prj.reload
-          expect(@prj).to eq(comparison)
+          expect(@prj).to have_attributes(FactoryGirl.attributes_for(:alt_project))
         end
         it 'redirects to project show page' do
           put :update, id:@prj, project: FactoryGirl.attributes_for(:alt_project)
@@ -131,6 +129,10 @@ RSpec.describe ProjectsController, type: :controller do
           expect{
             post :create, customer_id: @project_customer.id, project: FactoryGirl.attributes_for(:project)
           }.to change(Project, :count).by(1)
+        end
+        it 'correctly saves the data' do
+          post :create, customer_id:@project_customer.id, project:FactoryGirl.attributes_for(:project)
+          expect(Project.last).to have_attributes(FactoryGirl.attributes_for(:project))
         end
         it 'redirects to new projects show page' do
           post :create, customer_id: @project_customer.id, project: FactoryGirl.attributes_for(:project)

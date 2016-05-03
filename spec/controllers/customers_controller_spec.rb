@@ -115,8 +115,6 @@ RSpec.describe CustomersController, type: :controller do
       context "with valid model params" do
         before :each do
           @sbj = FactoryGirl.create(:customer)
-          @comparison = FactoryGirl.build(:alt_customer)          
-          @comparison.id = @sbj.id
         end
         after :each do
           @sbj = nil
@@ -129,7 +127,7 @@ RSpec.describe CustomersController, type: :controller do
         it "updates model attributes" do
           put :update, id:@sbj, customer:FactoryGirl.attributes_for(:alt_customer)
           @sbj.reload
-          expect(@sbj).to eq(@comparison)
+          expect(@sbj).to have_attributes(FactoryGirl.attributes_for(:alt_customer))
         end
         it "redirects to customer show page" do
           put :update, id:@sbj, customer:FactoryGirl.attributes_for(:alt_customer)
@@ -145,6 +143,10 @@ RSpec.describe CustomersController, type: :controller do
           expect{
             post :create, customer: FactoryGirl.attributes_for(:customer)
           }.to change(Customer, :count).by(1)
+        end
+        it "correctly saves the data" do
+          post :create, customer: FactoryGirl.attributes_for(:customer)
+          expect(Customer.last).to have_attributes(FactoryGirl.attributes_for(:customer))
         end
         it "redirects to new customer's show page" do
           post :create, customer: FactoryGirl.attributes_for(:customer)

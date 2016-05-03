@@ -1,6 +1,6 @@
 class CustomersController < ApplicationController
   def index
-    @customers = Customer.all
+    @customers = Customer.includes(:projects).all
   end
 
   def new
@@ -38,7 +38,7 @@ class CustomersController < ApplicationController
   end
 
   def show   
-    @customer = Customer.includes(:projects).find(params[:id])
+    @customer = Customer.includes(projects: :tasks).find(params[:id])
   end
 
   private

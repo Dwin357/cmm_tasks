@@ -66,7 +66,7 @@ RSpec.describe TasksController, type: :controller do
       after :each do
         @tsk = nil
       end
-      it 'serves the edit page' do
+      it 'serves the show page' do
         get :show, id:@tsk
         expect(response).to render_template(:show)
       end
@@ -105,11 +105,9 @@ RSpec.describe TasksController, type: :controller do
           expect(assigns(:task)).to eq(@tsk)
         end
         it 'updates model attributes' do
-          comparison = FactoryGirl.build(:alt_task)
-          comparison.id = @tsk.id
           put :update, id:@tsk, task:FactoryGirl.attributes_for(:alt_task)
           @tsk.reload
-          expect(@tsk).to eq(comparison)
+          expect(@tsk).to have_attributes(FactoryGirl.attributes_for(:alt_task))
         end
         it 'redirects to task show page' do
           put :update, id:@tsk, task:FactoryGirl.attributes_for(:alt_task)
@@ -124,6 +122,10 @@ RSpec.describe TasksController, type: :controller do
           expect{
             post :create, project_id: @task_project.id, task:FactoryGirl.attributes_for(:task)
           }.to change(Task, :count).by(1)
+        end
+        it 'correctly populates data' do
+          post :create, project_id:@task_project.id, task:FactoryGirl.attributes_for(:task)
+          expect(Task.last).to have_attributes(FactoryGirl.attributes_for(:task))
         end
         it 'redirects to new tasks show page' do
           post :create, project_id: @task_project.id, task:FactoryGirl.attributes_for(:task)
