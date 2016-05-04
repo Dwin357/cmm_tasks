@@ -29,8 +29,8 @@ RSpec.describe TaskEntriesController, type: :controller do
   context 'when logged in' do
     include SessionsHelper
     before :each do
-      login(FactoryGirl.create(:user))
       @task = FactoryGirl.create(:task)
+      login(@task.user)
     end
     after :each do
       logout
