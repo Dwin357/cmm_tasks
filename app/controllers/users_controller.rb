@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    # saving this for last
+    @user = User.includes(:tasks).find(params[:id])
   end
 
   def destroy

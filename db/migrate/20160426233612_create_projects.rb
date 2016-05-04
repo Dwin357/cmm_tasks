@@ -4,6 +4,8 @@ class CreateProjects < ActiveRecord::Migration
       t.string :project_name
       t.integer :customer_id
 
+      t.integer :tasks_count      
+
       t.timestamps null: false
     end
   end

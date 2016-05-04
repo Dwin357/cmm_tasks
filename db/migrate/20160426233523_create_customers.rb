@@ -6,6 +6,8 @@ class CreateCustomers < ActiveRecord::Migration
       t.string :city
       t.string :state
       t.string :zip
+      
+      t.integer :projects_count
 
       t.timestamps null: false
     end

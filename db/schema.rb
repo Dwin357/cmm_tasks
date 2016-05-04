@@ -22,13 +22,15 @@ ActiveRecord::Schema.define(version: 20160426233805) do
     t.string   "city"
     t.string   "state"
     t.string   "zip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "projects_count"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "projects", force: :cascade do |t|
     t.string   "project_name"
     t.integer  "customer_id"
+    t.integer  "tasks_count"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
@@ -46,14 +48,16 @@ ActiveRecord::Schema.define(version: 20160426233805) do
     t.integer  "project_id"
     t.integer  "user_id"
     t.string   "task_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "task_entries_count"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "password_digest"
     t.string   "email"
+    t.integer  "tasks_count"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
