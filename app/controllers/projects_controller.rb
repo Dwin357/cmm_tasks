@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   def new
-    @project = Project.new
+    @project  = Project.new
+    @customer = Customer.find(params[:customer_id])
   end
 
   def create
@@ -36,7 +37,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.includes(:tasks).find(params[:id])
+    @project = Project.includes(:tasks, :customer).find(params[:id])
   end
 
   private

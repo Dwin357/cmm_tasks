@@ -1,13 +1,18 @@
 <div class='row'>
   <div class='col-xs-10 col-xs-offset-1'>
-    <h2><%= @task.task_name %></h2>
-    <p>Assigned to <%= @task.user.username %></p>
-    <%= link_to "Edit Task", edit_task_path(@task) %>
-
     <div class='well'>
-      <p>Task Entries</p>
+      <h2><%= @task.task_name %></h2>
+      <p>Assigned to <%= @task.user.username || "unassigned" %></p>
     </div>
+    <br>
+    <p>
+      <%= link_to "<< Project", project_path(@task.project) %> - 
+      <%= link_to "Edit Task", edit_task_path(@task) %> - 
+      <%= link_to "New Entry", new_task_task_entry_path(@task) %>
+    </p>
+
     <ul class='list-group'>
+      <li class='list-group-item active'>Task Entries</li>
       <% @task.task_entries.each do |task_entry| %>
         <%= render partial: "task_entries/task_entry_line_item", locals:{task_entry:task_entry} %>
       <% end %>

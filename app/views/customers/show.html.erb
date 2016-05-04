@@ -3,7 +3,12 @@
     <h2><%= @customer.company %></h2>
     <p><%= @customer.address %></p>
     <p><%= "#{@customer.city}, #{@customer.state} #{@customer.zip}" %></p>
-    <%= link_to("Edit Customer", edit_customer_path(@customer)) %>
+    <br>
+    <p>
+      <%= link_to("<< Customer Index", customers_path) %> - 
+      <%= link_to("Edit Customer", edit_customer_path(@customer)) %> - 
+      <%= link_to "Add Project", new_customer_project_path(@customer) %>
+    </p>
 
     <div class='well'>
       <p>Projects</p>

@@ -1,11 +1,13 @@
 class TasksController < ApplicationController
   def new
-    @task = Task.new
+    @task    = Task.new
+    @project = Project.find(params[:project_id])
   end
 
   def create
-    project = Project.find(params[:project_id])
-    @task   = project.tasks.new(task_params)
+    project    = Project.find(params[:project_id])
+    @task      = project.tasks.new(task_params)
+    @task.user = current_user
     if @task.save
       redirect_to task_path(@task)
     else
@@ -36,7 +38,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.includes(:task_entries).find(params[:id])
+    @task = Task.includes(:task_entries, :project, :user).find(params[:id])
   end
 
   private

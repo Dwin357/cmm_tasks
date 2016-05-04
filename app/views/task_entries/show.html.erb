@@ -1,6 +1,11 @@
 <div class='row'>
   <div class='col-xs-10 col-xs-offset-1'>
-    <h2><%= "duration: #{@task_entry.duration}" %></h2>
+    <p>
+      <%= link_to "<< Task", task_path(@task_entry.task) %> - 
+      <%= link_to "Edit Entry", edit_task_entry_path(@task_entry) %>
+    </p>
+    <p><%= "duration: #{@task_entry.duration}" %></p>
     <p><%= @task_entry.note %></p>
+    
   </div>
 </div>

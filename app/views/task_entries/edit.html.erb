@@ -1,1 +1,12 @@
-<p>place holder, edit</p>
+<div class='row'>
+  <div class='col-xs-10 col-xs-offset-1'>
+    <div class='well'>
+      <p>Update Task Entry</p>
+    </div>
+    <%= render partial: "shared/error_display", locals:{errors: flash[:errors]} %>
+    <%= form_for(@task_entry) do |f| %>
+      <%= render partial: "task_entry_form_field", locals:{f:f} %>
+    <% end %>
+    <p>No longer relevant? <%= link_to "Remove Task Entry", task_entry_path(@task_entry), method: :delete, data: {confirm: 'This action is final, please confirm'} %></p>
+  </div>
+</div>

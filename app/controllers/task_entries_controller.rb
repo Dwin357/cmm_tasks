@@ -1,6 +1,7 @@
 class TaskEntriesController < ApplicationController
   def new
     @task_entry = TaskEntry.new
+    @task = Task.find(params[:task_id])
   end
 
   def create
@@ -36,7 +37,7 @@ class TaskEntriesController < ApplicationController
   end
 
   def show
-    @task_entry = TaskEntry.find(params[:id])
+    @task_entry = TaskEntry.includes(:task).find(params[:id])
   end
 
   private

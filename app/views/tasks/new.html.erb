@@ -1,1 +1,11 @@
-<p>standin for new</p>
+<div class='row'>
+  <div class='col-xs-10 col-xs-offset-1'>
+    <div class='well'>
+      New Task
+    </div>
+    <%= render partial: "shared/error_display", locals:{errors: flash[:errors]} %>
+    <%= form_for([@project, @task]) do |f| %>
+      <%= render partial: "task_form_fields", locals:{f:f} %>
+    <% end %>
+  </div>
+</div>

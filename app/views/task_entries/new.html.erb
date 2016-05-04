@@ -1,1 +1,11 @@
-<p>place holder new</p>
+<div class='row'>
+  <div class='col-xs-10 col-xs-offset-1'>
+    <div class='well'>
+      New Task Entry
+    </div>
+    <%= render partial: "shared/error_display", locals:{errors: flash[:errors]} %>
+    <%= form_for([@task, @task_entry]) do |f| %>
+      <%= render partial: "task_entry_form_fields", locals:{f:f} %>
+    <% end %>
+  </div>
+</div>

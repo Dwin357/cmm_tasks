@@ -3,6 +3,7 @@
     <div class='well'>
       <p>Customers</p>
     </div>
+    <p><%= link_to "Add Customer", new_customer_path %></p>
     <ul class='list-group'>
       <% @customers.each do |customer| %>
         <%= render partial: "customer_line_item", locals:{customer:customer}%>

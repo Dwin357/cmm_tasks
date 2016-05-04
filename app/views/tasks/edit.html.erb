@@ -1,1 +1,12 @@
-<p>standin edit</p>
+<div class='row'>
+  <div class='col-xs-10 col-xs-offset-1'>
+    <div class='well'>
+      <p>Update Task</p>
+    </div>
+    <%= render partial: "shared/error_display", locals:{errors: flash[:errors]} %>
+    <%= form_for(@task) do |f| %>
+      <%= render partial: "task_form_fields", locals:{f:f} %>
+    <% end %>
+    <p>No longer a thing? <%= link_to "Remove Task", task_path(@task), method: :delete, data: {confirm: 'This action is final, please confirm'} %></p>
+  </div>
+</div>

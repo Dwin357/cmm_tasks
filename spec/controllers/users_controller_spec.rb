@@ -36,21 +36,33 @@ RSpec.describe UsersController, type: :controller do
           expect(response).to redirect_to(user_path(User.last))
         end 
       end
-      # #no validations, not possible to have "invalid" model params
-      # context "with not valid model params"
-      #   it "re-renders new template" do
-      #     post :create, user: #bad user model
-      #     expect(response).to render_template(:new)
-      #   end
-      #   it "populates errors flash" do
-      #     post :create, user: #bad user model
-      #     expect(flash[:errors]).to eq(["error message"])
-      #   end
-      #   it "provides populated user model" do
-      #     post :create, user: #bad user model
-      #     expect(@user).to eq(#bad user model)
-      #   end
-      # end
+      context "with invalid model params" do
+        before :each do
+          valid_user = FactoryGirl.create(:user)
+          @invalid_duplicate_user = FactoryGirl.attributes_for(:user)
+        end
+        after :each do
+          @invalid_duplicate_user = nil
+        end
+
+        it "re-renders new template" do
+          post :create, user: @invalid_duplicate_user
+          expect(response).to render_template(:new)
+        end
+        it "populates errors flash" do
+          post :create, user: @invalid_duplicate_user
+          expect(flash[:errors]).to eq(["Username has already been taken"])
+        end
+        it "provides populated user model" do
+          post :create, user: @invalid_duplicate_user
+
+          # hardset b/c bcrypt password methods include salts
+          comparison = FactoryGirl.attributes_for(:user)
+          comparison[:password] = assigns(:user).password_digest
+
+          expect(assigns(:user)).to have_attributes(comparison)
+        end
+      end
     end
     describe "GET #edit" do
       it "redirects to new session path" do
@@ -135,21 +147,31 @@ RSpec.describe UsersController, type: :controller do
             expect(response).to redirect_to(user_path(@sbj))
           end 
         end
-        # #no validations, not possible to have "invalid" model params
-        # context "with invalid model params"
-        #   it "re-renders edit template" do
-        #     post :update, user: #bad user model
-        #     expect(response).to render_template(:edit)
-        #   end
-        #   it "populates errors flash" do
-        #     post :update, user: #bad user model
-        #     expect(flash[:errors]).to eq(["error message"])
-        #   end
-        #   it "provides populated user model" do
-        #     post :update, user: #bad user model
-        #     expect(@user).to eq(#bad user model)
-        #   end
-        # end
+        #no validations, not possible to have "invalid" model params
+        context "with invalid model params" do
+          before :each do
+            valid_alt_user = FactoryGirl.create(:alt_user)
+            @invalid_duplicate_alt_user = FactoryGirl.attributes_for(:alt_user)
+          end
+          it "re-renders edit template" do
+            put :update, id: @sbj, user: @invalid_duplicate_alt_user
+            expect(response).to render_template(:edit)
+          end
+          it "populates errors flash" do
+            put :update, id:@sbj, user: @invalid_duplicate_alt_user
+            expect(flash[:errors]).to eq(["Username has already been taken"])
+          end
+          it "provides populated user model" do
+            put :update, id:@sbj, user: @invalid_duplicate_alt_user
+
+          # hardset b/c bcrypt password methods include salts
+          # interesting that a new salt is used here, effectively "recoding" the pw
+            comparison = FactoryGirl.attributes_for(:alt_user)
+            comparison[:password] = assigns(:user).password_digest
+
+            expect(assigns(:user)).to have_attributes(comparison)
+          end
+        end
       end
       # #currently edit permissions compares current_user w/ user_from params 
       # #since these are parallel processes, it is always valid 
