@@ -1,104 +1,79 @@
 class TaskEntry < ActiveRecord::Base
   belongs_to :task, counter_cache: true
 
-#Time.now.to_a => [second, min, hr, day, month, yr]
-#Time.new(yr, month, day, hr, min, sec) => datetime
-
-  # #name space idea
-  def start_at
-    # for html to work, needs to return string w/
-    # HH:mm
-    to_time(start_time)
-  end
-  def end_at
-    # for html to work, needs to return string w/
-    # HH:mm
-    #gives just hr, min, sec
-    to_time(end_time)
-  end
-  def start_date
-    #for html to work, needs to return string w/
-    # yyyy-mm-dd
-    to_date(start_time)
-  end
-  def end_date
-    #for html to work, needs to return string w/
-    # yyyy-mm-dd
-    to_date(end_time)
-  end
-
-  def to_date(datetime)
-    # ary = datetime.to_a
-    # "#{ary[5]}-#{ary[4]}-#{ary[3]}"
-    datetime.strftime("%Y-%m-%d")
-  end
-
-  def to_time(datetime)
-    #this needs to be converted from utc to local
-    datetime.strftime("%H:%M")
-  end
-
+  # these are in UTC
   def end_time
     start_time + duration
   end
-
   def end_time=(new_value)
     self.duration = (new_value - start_time)
   end
 
-  def adjust_date(existing_datetime, new_date)
-    if (new_date != "")
-      yr, month, day = new_date.split("-")
-      ary = existing_date.to_a
-      Time.new(yr, month, day, ary[2], ary[1], ary[0])
+  ##### these are the attr_accessors for the form ####
+  ##  these should be in & out of local time  ##
+
+  def s_time
+    to_form_time(start_time.getlocal)
+  end
+  def s_time=(form_time)
+    if form_time != ""
+      self.start_time = time_adjusted_datetime(start_time.getlocal, form_time).utc
     end
+  end
+  def s_date
+    to_form_date(start_time.getlocal)
+  end
+  def s_date=(form_date)
+    if form_date != ""
+      self.start_time = date_adjusted_datetime(start_time.getlocal, form_date).utc
+    end
+  end
+  def e_time
+    to_form_time(end_time.getlocal)
+  end
+  def e_time=(form_time)
+    if form_time != ""
+      self.end_time = time_adjusted_datetime(end_time.getlocal, form_time).utc
+    end
+  end
+  def e_date
+    to_form_date(end_time.getlocal)
+  end
+  def e_date=(form_date)
+    if form_date != ""
+      self.end_time = date_adjusted_datetime(end_time.getlocal, form_date).utc
+    end
+  end  
+
+  ###########  helpers for the form attr_accessors  ################
+  def to_form_date(datetime)
+    datetime.strftime("%Y-%m-%d")
+  end
+  def to_form_time(datetime)
+    datetime.strftime("%H:%M")
+  end
+  def time_adjusted_datetime(datetime, form_time)
+    hour, min = form_time.split(":").map(&:to_i)
+    datetime.clone.change({hour: hour, min: min})
+  end
+  def date_adjusted_datetime(datetime, form_date)
+    yr, month, day = form_date.split("-").map(&:to_i)
+    datetime.clone.change({year: yr, month: month, day: day})
   end
 
-  def adjust_time(existing_datetime, new_time)
-    if new_time != ""
-      hour, min = new_time.split(":")
-      ary = existing_datetime.to_a
-      Time.new(ary[5], ary[4], ary[3], hour, min)
-    end
-  end
 
 ##### booleans  #####
   def active?
-    !pending? && !logged?
+    !pending? && !completed?
   end
 
   def pending?
-    start_time > Time.now
+    start_time > Time.now.utc
   end
 
-  def logged?
-    end_time < Time.now
+  def completed?
+    end_time < Time.now.utc
   end
 
 
-
-
-  # def completion_time
-  #   duration / 60
-  # end
-
-  # def completion_time=(value)
-  #   self.duration = (value.to_i * 60)
-  # end
-
-
-  # def init_time=(value)
-  # end
-
-  # def init_date=(value)
-  # end
-
-
-  # def init_time
-  #   start_time.strftime("%H:%M")
-  # end
-
-  # def init_date
-  #   start_time.strftime("%Y-%m-%d")
-  # end
 end

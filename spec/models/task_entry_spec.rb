@@ -1,23 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe TaskEntry, type: :model do
-  let(:subject) {FactoryGirl.build(:task_entry)}
-  let(:after_active_window) do
-    subject
-    subject.start_time = 5.minutes.ago
-    subject.duration = 180 #seconds
+  let(:subject) {FactoryGirl.build(:alt_task_entry)}
+  let(:before_active_window) do
+    subject.start_time = 1.hour.from_now.utc
+    subject.end_time = 2.hours.from_now.utc
     subject
   end
-  let(:before_active_window) do
-    subject
-    subject.start_time = 5.minutes.from_now
-    subject.duration = 180 #seconds
+  let(:after_active_window) do
+    subject.start_time = 2.hours.ago.utc
+    subject.end_time = 1.hour.ago.utc
     subject
   end
   let(:inside_active_window) do
-    subject
-    subject.start_time = 1.minutes.ago
-    subject.duration = 180 #seconds
+    subject.start_time = 1.hour.ago.utc
+    subject.end_time = 1.hour.from_now.utc
     subject
   end
 
@@ -36,83 +33,110 @@ RSpec.describe TaskEntry, type: :model do
     end
   end
   describe "duck attribute" do
-    it "#end_time" do
-      time = Time.now
-      subject.start_time = time
-      subject.duration = 500
-      expect(subject.end_time).to eq(time+500)
-    end
-    it '#end_time=()' do
-      time = Time.now
-      subject.start_time = time
-      subject.end_time = (time + 500)
-      expect(subject.start_time).to eq(time)
-      expect(subject.end_time).to eq(time+500)
-      expect(subject.duration).to eq(500)
-    end
-    # it '#start_at' do
-    #   subject.start_time = Time.new(2016, 1, 23, 1, 15)
-    #   subject.end_time = Time.new(2016, 11, 2, 13, 5)
-    #   expect(subject.start_at).to eq("01:15")
-    # end
-    # it '#end_at' do
-    #   subject.start_time = Time.new(2016, 1, 23, 1, 15)
-    #   subject.end_time = Time.new(2016, 11, 2, 13, 5)
-    #   expect(subject.end_at).to eq("13:05")
-    # end
-    it '#end_date' do
-      subject.start_time = Time.new(2016, 1, 23, 1, 15)
-      subject.end_time = Time.new(2016, 11, 2, 13, 5)
-      expect(subject.end_date).to eq("2016-11-02")
-    end
-    it '#start_date' do
-      subject.start_time = Time.new(2016, 1, 23, 1, 15)
-      subject.end_time = Time.new(2016, 11, 2, 13, 5)
-      expect(subject.start_date).to eq("2016-01-23")      
-    end
-  end
-  describe "#active?" do
-    describe "returns true" do
-      it "inside the active window" do
-        expect(inside_active_window.active?).to be true
+    describe 'end_time' do
+      it '#end_time adds duration to start_time' do
+        s_time = subject.start_time
+        dur = subject.duration
+        expect(subject.end_time).to eq(s_time+dur)
+      end
+      it '#end_time=() adjusts duration' do
+        s_time = subject.start_time
+        subject.end_time = (s_time + 600)
+        expect(subject.duration).to eq(600)
+      end
+      it 'is in utc format' do
+        expect(subject.end_time.utc?).to be true
       end
     end
-    describe "returns false" do
-      it "before active window" do        
-        expect(before_active_window.active?).to be false
+    describe 's_time' do
+      it '#s_time returns "HH:mm"' do
+        expect(subject.s_time).to eq("01:05")
       end
-      it "after active window" do        
-        expect(after_active_window.active?).to be false
-      end
-    end
-  end
-  describe "#pending?" do
-    describe "returns true" do
-      it "before active window" do        
-        expect(before_active_window.pending?).to be true
+      it '#s_time=() updates start time' do
+        comparison = 
+          subject.start_time.clone.getlocal.change({hour:2,min:50}).utc
+        subject.s_time = "02:50"
+        expect(subject.start_time).to eq(comparison)
       end
     end
-    describe "returns false" do
-      it "inside the active window" do
-        expect(inside_active_window.pending?).to be false
+    describe 's_date' do
+      it '#s_date returns "yyyy-mm-dd"' do
+        expect(subject.s_date).to eq("2000-01-01")
       end
-      it "after active window" do        
-        expect(after_active_window.pending?).to be false
+      it '#s_date=() updates start time' do
+        comparison = 
+          subject.start_time.clone.getlocal.change({year:2015,month:5,day:12}).utc
+        subject.s_date = "2015-05-12"
+        expect(subject.start_time).to eq(comparison)
+      end
+    end
+    describe 'e_time' do
+      it '#e_time returns "HH:mm"' do
+        expect(subject.e_time).to eq("06:13")
+      end
+      it '#e_time=() updates start time' do
+        comparison = 
+          subject.end_time.clone.getlocal.change({hour:2,min:50}).utc
+        subject.e_time = "02:50"
+        expect(subject.end_time).to eq(comparison)
+      end
+    end
+    describe 'e_date' do
+      it '#e_date returns "yyyy-mm-dd"' do
+        expect(subject.e_date).to eq("2006-11-23")
+      end
+      it '#e_date=() updates start time' do
+        comparison = 
+          subject.end_time.clone.getlocal.change({year:2015,month:5,day:12}).utc
+        subject.e_date = "2015-05-12"
+        expect(subject.end_time).to eq(comparison)
       end
     end
   end
-  describe "#logged?" do
-    describe "returns true" do
-      it "after active window" do        
-        expect(after_active_window.logged?).to be true
+  describe "booleans" do
+    describe "#active?" do
+      describe "returns true" do
+        it "inside the active window" do
+          expect(inside_active_window.active?).to be true
+        end
+      end
+      describe "returns false" do
+        it "before active window" do        
+          expect(before_active_window.active?).to be false
+        end
+        it "after active window" do        
+          expect(after_active_window.active?).to be false
+        end
       end
     end
-    describe "returns false" do
-      it "before active window" do        
-        expect(before_active_window.logged?).to be false
+    describe "#pending?" do
+      describe "returns true" do
+        it "before active window" do        
+          expect(before_active_window.pending?).to be true
+        end
       end
-      it "inside the active window" do
-        expect(inside_active_window.logged?).to be false
+      describe "returns false" do
+        it "inside the active window" do
+          expect(inside_active_window.pending?).to be false
+        end
+        it "after active window" do        
+          expect(after_active_window.pending?).to be false
+        end
+      end
+    end
+    describe "#completed?" do
+      describe "returns true" do
+        it "after active window" do        
+          expect(after_active_window.completed?).to be true
+        end
+      end
+      describe "returns false" do
+        it "before active window" do        
+          expect(before_active_window.completed?).to be false
+        end
+        it "inside the active window" do
+          expect(inside_active_window.completed?).to be false
+        end
       end
     end
   end
