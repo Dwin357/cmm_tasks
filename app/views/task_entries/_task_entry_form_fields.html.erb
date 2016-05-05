@@ -1,10 +1,14 @@
 <div class='form-group'>
-  <%= f.label :start_time %>
-  <%= f.datetime_field :start_time %>
+  <%= f.label :init_time %>
+  <%= f.time_field :init_time %>
 </div>
 <div class='form-group'>
-  <%= f.label :duration %>
-  <%= f.text_field :duration %>
+  <%= f.label :init_date %>
+  <%= f.date_field :init_date %>
+</div>
+<div class='form-group'>
+  <%= f.label :completion_time %>
+  <%= f.text_field :completion_time, placeholder: "min" %>
 </div>
 <div class='form-group'>
   <%= f.label :note %>
@@ -13,3 +17,6 @@
 <div class='form-group'>
   <%= f.submit %>
 </div>
+
+<!-- 
+f.date_field :date_requested, as: :date, value: f.object.date_requested.try(:strftime,"%m/%d/%Y" -->

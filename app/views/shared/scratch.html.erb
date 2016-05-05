@@ -1,0 +1,30 @@
+<form method='post' <%= "action='/task_entries/#{@task_entry.id}'" %>>
+      <input type='hidden' name="_method" value="patch"/>
+      <%= token_tag %>
+      <div class='form-group'>
+        <label for='start_date'>Start Date</label>
+        <input type='date' name='task_entry[start_date]'
+        value=<%= "#{@task_entry.start_date}" %>>
+
+      </div>
+      <div class='form-group'>
+        <label for='start_at'>Start Time</label>
+        <input type='time' name='task_entry[start_at]' 
+        <%= "value='#{@task_entry.start_at}'" %>/>
+      </div>
+      <div class='form-group'>
+        <label for='end_date'>End Date</label>
+        <input type='date' name='task_entry[end_date]' <%= "value='#{@task_entry.end_date}'" %>/>
+      </div>
+      <div class='form-group'>
+        <label for='end_at'>End Time</label>
+        <input type='time' name='task_entry[end_at]' <%= "value='#{@task_entry.end_at}'" %>/>
+      </div>    
+      <div class='form-group'>
+        <label for='note'>Note</label>
+        <input type='textarea' name='task_entry[note]' <%= "value='#{@task_entry.note}'" %>/>
+      </div>  
+      <div class='from-group'>
+        <input name="commit" type="submit" value="Edit" />
+      </div>
+    </form>

@@ -42,6 +42,6 @@ class TaskEntriesController < ApplicationController
 
   private
   def task_entry_params
-    params.require(:task_entry).permit(:note, :duration)
+    params.require(:task_entry).permit(:note, :completion_time, :init_time, :init_date)
   end
 end

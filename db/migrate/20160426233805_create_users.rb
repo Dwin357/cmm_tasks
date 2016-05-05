@@ -5,9 +5,11 @@ class CreateUsers < ActiveRecord::Migration
       t.string :password_digest
       t.string :email
 
-      t.integer :tasks_count
-
       t.timestamps null: false
+
+      ### elaboration on model ###
+      
+      t.integer :tasks_count
     end
   end
 end

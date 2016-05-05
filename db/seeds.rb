@@ -9,6 +9,8 @@ batman =
               password: "joker",
               email: "bruce@waynetech.com")
 
+
+
 wayne_tech = 
   Customer.create!(company: "Wayne Tech",
                   address: "141 W Jackson",
@@ -23,40 +25,26 @@ daily_planet =
                   state: "NY",
                   zip: "10118")
 
-3.times do |n|
-  project = 
-    Project.create!(project_name: "project #{n} for customer planet",
-                    customer: daily_planet)
+companies = [wayne_tech, daily_planet]
 
-  2.times do |m|
-    task = 
-      Task.create!(task_name: "task #{m} of prj #{n} for customer planet",
-                   project: project,
-                   user: batman)
+companies.each do |company|
+  3.times do |n|
+    project = 
+      Project.create!(project_name: "project #{n} for customer planet",
+                      customer: company)
 
-    2.times do |o|
-      TaskEntry.create!(note: "line #{o} of task #{m} of prj #{n} for customer planet",
-                        duration: 100,
-                        task: task)
-    end
-  end
-end
+    2.times do |m|
+      task = 
+        Task.create!(task_name: "task #{m} of prj #{n} for customer planet",
+                     project: project,
+                     user: batman)
 
-3.times do |n|
-  project = 
-    Project.create!(project_name: "project #{n} for customer wayne tech",
-                    customer: wayne_tech)
-
-  2.times do |m|
-    task = 
-      Task.create!(task_name: "task #{m} of prj #{n} for customer wayne tech",
-                   project: project,
-                   user: batman)
-
-    2.times do |o|
-      TaskEntry.create!(note: "line #{o} of task #{m} of prj #{n} for customer wayne tech",
-                        duration: 100,
-                        task: task)
+      2.times do |o|
+        TaskEntry.create!(note: "line #{o} of task #{m} of prj #{n} for customer planet",
+                          duration: 10_000,
+                          start_time: o.hours.ago,
+                          task: task)
+      end
     end
   end
 end

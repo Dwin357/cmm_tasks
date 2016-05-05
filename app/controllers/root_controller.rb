@@ -8,4 +8,9 @@ class RootController < ApplicationController
       redirect_to new_session_path
     end
   end
+
+  def scratch
+    @task_entry = TaskEntry.last
+    render "shared/scratch"
+  end
 end

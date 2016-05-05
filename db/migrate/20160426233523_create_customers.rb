@@ -7,9 +7,11 @@ class CreateCustomers < ActiveRecord::Migration
       t.string :state
       t.string :zip
       
+      t.timestamps null: false
+
+      ### elaboration on model ###
       t.integer :projects_count
 
-      t.timestamps null: false
     end
   end
 end
