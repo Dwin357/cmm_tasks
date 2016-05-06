@@ -25,6 +25,12 @@ RSpec.describe TaskEntry, type: :model do
     it "has a valid alt_factory" do
       expect(FactoryGirl.create(:alt_task_entry)).to be_valid
     end
+    it 'factory :alt_task_entry start time' do
+      expect(FactoryGirl.build(:alt_task_entry).start_time).to eq(Time.new(2000, 1, 1, 1, 5).utc)
+    end
+    it 'factory end time' do
+      expect(FactoryGirl.build(:alt_task_entry).end_time).to eq(Time.new(2006, 11, 23, 6, 13).utc)
+    end
   end
   describe "associations" do
     it "belongs to tasks" do
@@ -33,6 +39,14 @@ RSpec.describe TaskEntry, type: :model do
     end
   end
   describe "duck attribute" do
+    describe "root db attributes backstoped by default values" do
+      it '#start_time' do
+        expect(TaskEntry.new.start_time).not_to be nil
+      end
+      it '#duration' do
+        expect(TaskEntry.new.duration).not_to be nil
+      end
+    end
     describe 'end_time' do
       it '#end_time adds duration to start_time' do
         s_time = subject.start_time
@@ -48,50 +62,50 @@ RSpec.describe TaskEntry, type: :model do
         expect(subject.end_time.utc?).to be true
       end
     end
-    describe 's_time' do
-      it '#s_time returns "HH:mm"' do
-        expect(subject.s_time).to eq("01:05")
-      end
-      it '#s_time=() updates start time' do
-        comparison = 
-          subject.start_time.clone.getlocal.change({hour:2,min:50}).utc
-        subject.s_time = "02:50"
-        expect(subject.start_time).to eq(comparison)
-      end
-    end
-    describe 's_date' do
-      it '#s_date returns "yyyy-mm-dd"' do
-        expect(subject.s_date).to eq("2000-01-01")
-      end
-      it '#s_date=() updates start time' do
-        comparison = 
-          subject.start_time.clone.getlocal.change({year:2015,month:5,day:12}).utc
-        subject.s_date = "2015-05-12"
-        expect(subject.start_time).to eq(comparison)
-      end
-    end
-    describe 'e_time' do
-      it '#e_time returns "HH:mm"' do
-        expect(subject.e_time).to eq("06:13")
-      end
-      it '#e_time=() updates start time' do
-        comparison = 
-          subject.end_time.clone.getlocal.change({hour:2,min:50}).utc
-        subject.e_time = "02:50"
-        expect(subject.end_time).to eq(comparison)
-      end
-    end
-    describe 'e_date' do
-      it '#e_date returns "yyyy-mm-dd"' do
-        expect(subject.e_date).to eq("2006-11-23")
-      end
-      it '#e_date=() updates start time' do
-        comparison = 
-          subject.end_time.clone.getlocal.change({year:2015,month:5,day:12}).utc
-        subject.e_date = "2015-05-12"
-        expect(subject.end_time).to eq(comparison)
-      end
-    end
+    # describe 's_time' do
+    #   it '#s_time returns "HH:mm"' do
+    #     expect(subject.s_time).to eq("01:05")
+    #   end
+    #   it '#s_time=() updates start time' do
+    #     comparison = 
+    #       subject.start_time.clone.getlocal.change({hour:2,min:50}).utc
+    #     subject.s_time = "02:50"
+    #     expect(subject.start_time).to eq(comparison)
+    #   end
+    # end
+    # describe 's_date' do
+    #   it '#s_date returns "yyyy-mm-dd"' do
+    #     expect(subject.s_date).to eq("2000-01-01")
+    #   end
+    #   it '#s_date=() updates start time' do
+    #     comparison = 
+    #       subject.start_time.clone.getlocal.change({year:2015,month:5,day:12}).utc
+    #     subject.s_date = "2015-05-12"
+    #     expect(subject.start_time).to eq(comparison)
+    #   end
+    # end
+    # describe 'e_time' do
+    #   it '#e_time returns "HH:mm"' do
+    #     expect(subject.e_time).to eq("06:13")
+    #   end
+    #   it '#e_time=() updates start time' do
+    #     comparison = 
+    #       subject.end_time.clone.getlocal.change({hour:2,min:50}).utc
+    #     subject.e_time = "02:50"
+    #     expect(subject.end_time).to eq(comparison)
+    #   end
+    # end
+    # describe 'e_date' do
+    #   it '#e_date returns "yyyy-mm-dd"' do
+    #     expect(subject.e_date).to eq("2006-11-23")
+    #   end
+    #   it '#e_date=() updates start time' do
+    #     comparison = 
+    #       subject.end_time.clone.getlocal.change({year:2015,month:5,day:12}).utc
+    #     subject.e_date = "2015-05-12"
+    #     expect(subject.end_time).to eq(comparison)
+    #   end
+    # end
   end
   describe "booleans" do
     describe "#active?" do

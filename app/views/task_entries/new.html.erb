@@ -4,8 +4,11 @@
       <p>New Task Entry</p>
     </div>
     <%= render partial: "shared/error_display", locals:{errors: flash[:errors]} %>
-    <%= form_for([@task, @task_entry]) do |f| %>
-      <%= render partial: "task_entry_form_fields", locals:{f:f} %>
+    <%= form_tag("/tasks/#{@task.id}/task_entries") do %>
+      <%= render partial: "task_entry_form_fields", locals:{task_entry:@task_entry} %>
+      <div class='from-group'>
+        <input name="commit" type="submit" value="Create" />
+      </div>
     <% end %>
   </div>
 </div>

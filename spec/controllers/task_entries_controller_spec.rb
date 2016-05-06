@@ -101,16 +101,16 @@ RSpec.describe TaskEntriesController, type: :controller do
         @tsk_entry = nil
       end
       it 'locates the correct task_entry' do
-        put :update, id:@tsk_entry, task_entry:FactoryGirl.attributes_for(:alt_task_entry)
+        put :update, id:@tsk_entry, task_entry:FactoryGirl.attributes_for(:form_field_values)
         expect(assigns(:task_entry)).to eq(@tsk_entry)
       end
       it 'updates model attributes' do
-        put :update, id:@tsk_entry, task_entry:FactoryGirl.attributes_for(:alt_task_entry)
+        put :update, id:@tsk_entry, task_entry:FactoryGirl.attributes_for(:form_field_values)
         @tsk_entry.reload
-        expect(@tsk_entry).to have_attributes(FactoryGirl.attributes_for(:alt_task_entry))
+        expect(@tsk_entry).to have_attributes(FactoryGirl.attributes_for(:form_field_values))
       end
       it 'redirects to task_entry show page' do
-        put :update, id:@tsk_entry, task_entry:FactoryGirl.attributes_for(:alt_task_entry)
+        put :update, id:@tsk_entry, task_entry:FactoryGirl.attributes_for(:form_field_values)
         expect(response).to redirect_to(task_entry_path(@tsk_entry))
       end
     end
@@ -118,15 +118,15 @@ RSpec.describe TaskEntriesController, type: :controller do
       context 'with valid model params' do
         it 'saves new task to db' do
           expect{
-            post :create, task_id:@task.id, task_entry: FactoryGirl.attributes_for(:task_entry)
+            post :create, task_id:@task.id, task_entry: FactoryGirl.attributes_for(:form_field_values)
           }.to change(TaskEntry, :count).by(1)
         end
         it 'correctly saves the data' do
-          post :create, task_id:@task.id, task_entry:FactoryGirl.attributes_for(:task_entry)
-          expect(TaskEntry.last).to have_attributes(FactoryGirl.attributes_for(:task_entry))
+          post :create, task_id:@task.id, task_entry:FactoryGirl.attributes_for(:form_field_values)
+          expect(TaskEntry.last).to have_attributes(FactoryGirl.attributes_for(:form_field_values))
         end
         it 'redirects to new task_entry show page' do
-          post :create, task_id:@task.id, task_entry: FactoryGirl.attributes_for(:task_entry)
+          post :create, task_id:@task.id, task_entry: FactoryGirl.attributes_for(:form_field_values)
           expect(response).to redirect_to(task_entry_path(TaskEntry.last))
         end
       end

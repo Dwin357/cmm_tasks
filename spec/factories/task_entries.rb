@@ -13,4 +13,13 @@ FactoryGirl.define do
     end_time Time.new(2006, 11, 23, 6, 13).utc
     note "moment to brood"
   end
+
+  factory :form_field_values, class: TaskEntry do
+    task
+    s_time "01:05"
+    s_date "2000-01-01"
+    e_time "13:15"
+    e_date "2006-11-23"
+    note "check the net"
+  end
 end

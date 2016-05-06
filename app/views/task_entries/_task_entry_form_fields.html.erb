@@ -1,22 +1,24 @@
 <div class='form-group'>
-  <%= f.label :init_time %>
-  <%= f.time_field :init_time %>
-</div>
-<div class='form-group'>
-  <%= f.label :init_date %>
-  <%= f.date_field :init_date %>
-</div>
-<div class='form-group'>
-  <%= f.label :completion_time %>
-  <%= f.text_field :completion_time, placeholder: "min" %>
-</div>
-<div class='form-group'>
-  <%= f.label :note %>
-  <%= f.text_area :note %>
-</div>
-<div class='form-group'>
-  <%= f.submit %>
-</div>
+  <label for='start_date'>Start Date</label>
+  <input type='date' name='task_entry[s_date]'
+  value="<%= task_entry.s_date %>"/>
 
-<!-- 
-f.date_field :date_requested, as: :date, value: f.object.date_requested.try(:strftime,"%m/%d/%Y" -->
+</div>
+<div class='form-group'>
+  <label for='start_at'>Start Time</label>
+  <input type='time' name='task_entry[s_time]' 
+  value="<%= task_entry.s_time%>"/>
+</div>
+<div class='form-group'>
+  <label for='end_date'>End Date</label>
+  <input type='date' name='task_entry[e_date]' value="<%= task_entry.e_date%>"/>
+</div>
+<div class='form-group'>
+  <label for='end_at'>End Time</label>
+  <input type='time' name='task_entry[e_time]' 
+    value="<%= task_entry.e_time%>"/>
+</div>    
+<div class='form-group'>
+  <label for='note'>Note</label>
+  <input type='textarea' name='task_entry[note]' value="<%=task_entry.note%>"/>
+</div>

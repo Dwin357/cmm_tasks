@@ -2,9 +2,9 @@
   <div class='col-xs-10 col-xs-offset-1'>
     <div class='well'>
       <p>
-        <%= @task_entry.start_time.to_formatted_s(:long_ordinal)%>
+        <%= @task_entry.start_time.getlocal.to_formatted_s(:long_ordinal)%>
         <strong> to </strong>
-        <%= @task_entry.end_time.to_formatted_s(:long_ordinal) %>
+        <%= @task_entry.end_time.getlocal.to_formatted_s(:long_ordinal) %>
       </p>
     </div>
     <p>

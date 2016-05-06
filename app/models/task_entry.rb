@@ -1,5 +1,6 @@
 class TaskEntry < ActiveRecord::Base
   belongs_to :task, counter_cache: true
+  after_initialize :set_default_model_values
 
   # these are in UTC
   def end_time
@@ -17,6 +18,7 @@ class TaskEntry < ActiveRecord::Base
   end
   def s_time=(form_time)
     if form_time != ""
+      (self.start_time = Time.now) unless start_time
       self.start_time = time_adjusted_datetime(start_time.getlocal, form_time).utc
     end
   end
@@ -24,7 +26,8 @@ class TaskEntry < ActiveRecord::Base
     to_form_date(start_time.getlocal)
   end
   def s_date=(form_date)
-    if form_date != ""
+    if form_date != ""      
+      (self.start_time = Time.now) unless start_time
       self.start_time = date_adjusted_datetime(start_time.getlocal, form_date).utc
     end
   end
@@ -44,6 +47,11 @@ class TaskEntry < ActiveRecord::Base
       self.end_time = date_adjusted_datetime(end_time.getlocal, form_date).utc
     end
   end  
+
+  def set_default_model_values
+    self.start_time = Time.now.utc if (self.new_record? && self.start_time.nil?)
+    self.duration = 3600 if (self.new_record? && self.duration.nil?)
+  end
 
   ###########  helpers for the form attr_accessors  ################
   def to_form_date(datetime)

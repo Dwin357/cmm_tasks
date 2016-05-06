@@ -4,54 +4,12 @@
       <p>Update Task Entry</p>
     </div>
     <%= render partial: "shared/error_display", locals:{errors: flash[:errors]} %>
-    <%= form_for(@task_entry) do |f| %>
-      <div class='form-group'>
-        <%#= f.label :init_time %>
-        <%#= f.time_field :init_time %>
-      </div>
-      <div class='form-group'>
-        <%#= f.label :init_date %>
-        <%#= f.date_field :init_date %>
-      </div>
-      <div class='form-group'>
-        <%#= f.label :completion_time %>
-        <%#= f.text_field :completion_time, placeholder: "min" %>
-      </div>
-      <div class='form-group'>
-        <%#= f.label :note %>
-        <%#= f.text_area :note %>
-      </div>
-      <div class='form-group'>
-        <%#= f.submit %>
-      </div>
-    <% end %>
-    
-   <!--  <form method='put' <%#= "action='/task_entries/#{@task_entry.id}'" %>>
-      <%#= token_tag %>
-      <div class='form-group'>
-        <label for='start_date'>Start Date</label>
-        <input type='date' name='task_entry[start_date]' <%#= "value='#{@task_entry.start_date}'" %>/>
-      </div>
-      <div class='form-group'>
-        <label for='start_at'>Start Time</label>
-        <input type='time' name='task_entry[start_at]' <%#= "value='#{@task_entry.start_at}'" %>/>
-      </div>
-      <div class='form-group'>
-        <label for='end_date'>End Date</label>
-        <input type='date' name='task_entry[end_date]' <%#= "value='#{@task_entry.end_date}'" %>/>
-      </div>
-      <div class='form-group'>
-        <label for='end_at'>End Time</label>
-        <input type='time' name='task_entry[end_at]' <%#= "value='#{@task_entry.end_at}'" %>/>
-      </div>    
-      <div class='form-group'>
-        <label for='note'>Note</label>
-        <input type='textarea' name='task_entry[note]' <%#= "value='#{@task_entry.note}'" %>/>
-      </div>  
+    <%= form_tag("/task_entries/#{@task_entry.id}", method: "patch") do %>
+      <%= render partial: "task_entry_form_fields", locals:{task_entry:@task_entry} %>
       <div class='from-group'>
         <input name="commit" type="submit" value="Edit" />
       </div>
-    </form> -->
+    <% end %>
     <p>No longer relevant? <%= link_to "Remove Task Entry", task_entry_path(@task_entry), method: :delete, data: {confirm: 'This action is final, please confirm'} %></p>
   </div>
 </div>

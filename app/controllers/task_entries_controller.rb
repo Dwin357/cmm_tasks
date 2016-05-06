@@ -1,13 +1,13 @@
 class TaskEntriesController < ApplicationController
   def new
-    @task_entry = TaskEntry.new
+    @task_entry = TaskEntry.new()
     @task = Task.find(params[:task_id])
   end
 
   def create
     task = Task.find(params[:task_id])
-    @task_entry = task.task_entries.new(task_entry_params)
-    if @task_entry.save
+    @task_entry = task.task_entries.new()
+    if @task_entry.update(task_entry_params)
       redirect_to task_entry_path(@task_entry)
     else
       flash[:errors] = @task_entry.errors.full_messages
@@ -42,6 +42,6 @@ class TaskEntriesController < ApplicationController
 
   private
   def task_entry_params
-    params.require(:task_entry).permit(:note, :completion_time, :init_time, :init_date)
+    params.require(:task_entry).permit(:note, :s_time, :s_date, :e_time, :e_date)
   end
 end

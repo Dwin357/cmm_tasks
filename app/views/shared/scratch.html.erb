@@ -4,22 +4,22 @@
       <div class='form-group'>
         <label for='start_date'>Start Date</label>
         <input type='date' name='task_entry[start_date]'
-        value="<%= @task_entry.start_date %>"/>
+        value="<%= @task_entry.s_date %>"/>
 
       </div>
       <div class='form-group'>
         <label for='start_at'>Start Time</label>
         <input type='time' name='task_entry[start_at]' 
-        value="<%= @task_entry.start_at%>"/>
+        value="<%= @task_entry.s_time%>"/>
       </div>
       <div class='form-group'>
         <label for='end_date'>End Date</label>
-        <input type='date' name='task_entry[end_date]' value="<%= @task_entry.end_date%>"/>
+        <input type='date' name='task_entry[end_date]' value="<%= @task_entry.e_date%>"/>
       </div>
       <div class='form-group'>
         <label for='end_at'>End Time</label>
         <input type='time' name='task_entry[end_at]' 
-          value="<%= @task_entry.end_at%>"/>
+          value="<%= @task_entry.e_time%>"/>
       </div>    
       <div class='form-group'>
         <label for='note'>Note</label>
