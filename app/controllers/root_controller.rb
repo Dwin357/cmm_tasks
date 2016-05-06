@@ -1,4 +1,4 @@
-class RootController < ApplicationController
+class RootController < LayoutController
   skip_before_action :require_login
   
   def index

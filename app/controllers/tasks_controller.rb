@@ -1,4 +1,4 @@
-class TasksController < ApplicationController
+class TasksController < LayoutController
   def new
     @task    = Task.new
     @project = Project.find(params[:project_id])

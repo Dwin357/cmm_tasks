@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>
-    <%= content_for?(:title_tab) ? yield(:title_tab) : "CmmProject" %>
+    Welcome CmmProject
   </title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -10,23 +10,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-  <%= render partial: "shared/nav_bar" %>
   <div class='container'>
     <div class='row layout-row' id='layout-row'>
-
-      <div class='col-xs-3 left-gutter' id='layout-left-gutter'>
-        <%= yield(:left_gutter) %>
-      </div>
-
-      <div class='col-xs-6 center-gutter' id='layout-center-gutter'>
+      <div class='col-xs-6 center-gutter col-xs-offset-3' id='layout-sessions'>
         <%= yield %>
-      </div>
-
-      <div class='col-xs-3 right-gutter' id='layout-right-gutter'>
-        <%= yield(:right_gutter) %>
-      </div>
-      
+      </div>      
     </div>
   </div>
 

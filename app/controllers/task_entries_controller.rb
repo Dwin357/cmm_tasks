@@ -1,4 +1,4 @@
-class TaskEntriesController < ApplicationController
+class TaskEntriesController < LayoutController
   def new
     @task_entry = TaskEntry.new()
     @task = Task.find(params[:task_id])

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resource :calendar, only:[:show], controller: :calendar
+
   shallow do
     resources :customers do
       resources :projects, except: [:index] do

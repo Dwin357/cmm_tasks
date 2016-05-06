@@ -1,4 +1,4 @@
-class CustomersController < ApplicationController
+class CustomersController < LayoutController
   def index
     @customers = Customer.includes(:projects).all
   end

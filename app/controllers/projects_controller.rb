@@ -1,4 +1,4 @@
-class ProjectsController < ApplicationController
+class ProjectsController < LayoutController
   def new
     @project  = Project.new
     @customer = Customer.find(params[:customer_id])
