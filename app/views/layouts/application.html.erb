@@ -14,21 +14,32 @@
   <%= render partial: "shared/nav_bar" %>
   <div class='container'>
     <div class='row layout-row' id='layout-row'>
+      <div class='col-xs-10 col-xs-offset-1'>
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+
+
+<!--   <%#= render partial: "shared/nav_bar" %>
+  <div class='container'>
+    <div class='row layout-row' id='layout-row'>
 
       <div class='col-xs-3 left-gutter' id='layout-left-gutter'>
-        <%= yield(:left_gutter) %>
+        <%#= yield(:left_gutter) %>
+        <%#= render partial: "shared/left_gutter" %>
       </div>
 
       <div class='col-xs-6 center-gutter' id='layout-center-gutter'>
-        <%= yield %>
+        <%#= yield %>
       </div>
 
       <div class='col-xs-3 right-gutter' id='layout-right-gutter'>
-        <%= yield(:right_gutter) %>
+        <%#= yield(:right_gutter) %>
       </div>
       
     </div>
-  </div>
+  </div> -->
 
 </body>
 </html>

@@ -1,0 +1,9 @@
+<a href=<%= "\#task-#{task.id}"%> class='list-group-item' data-toggle='collapse'>
+  <i class='glyphicon glyphicon-chevron-right'></i>
+  <%= task.task_name %>
+</a>
+<div class='list-group collapse' id=<%= "task-#{task.id}"%>>
+  <% task.task_entries.each do |task_entry| %>
+    <%= render partial: "task_entries/nested_entry", locals:{task_entry: task_entry}%>
+  <% end %>
+</div>

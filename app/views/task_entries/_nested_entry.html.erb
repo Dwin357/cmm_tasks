@@ -1,0 +1,7 @@
+<a href=<%= "\#entry-#{task_entry.id}" %> class='list-group-item' data-toggle='collapse'>
+  <i class='glyphicon glyphicon-chevron-right'></i>
+  <%= task_entry.time_display %>
+</a>
+<div class='list-group collapse' id=<%= "entry-#{task_entry.id}"%>>
+  <p class='list-group-item'><%= task_entry.note %></p>
+</div>

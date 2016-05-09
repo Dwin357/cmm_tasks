@@ -83,5 +83,17 @@ class TaskEntry < ActiveRecord::Base
     end_time < Time.now.utc
   end
 
+######  display methods  #####
 
+  def time_display
+    "#{format_timestamp(start_time)} - #{format_timestamp(end_time)}"
+  end
+
+  # def opening_time_display
+  #   format_timestamp(start_time)
+  # end
+
+  def format_timestamp(datetime)
+    datetime.getlocal.to_formatted_s(:long_ordinal)
+  end
 end

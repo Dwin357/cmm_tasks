@@ -10,11 +10,11 @@
       <%= link_to("New Task", new_project_task_path(@project)) %>
     </p>
 
-    <ul class='list-group'>
-      <li class='list-group-item active'>Tasks</li>
+    <div class='list-group list-group-root well'>
       <% @project.tasks.each do |task| %>
-        <%= render partial: "tasks/task_line_item", locals: {task: task} %>
+        <%= render partial: "tasks/nested_task", locals:{task:task}%>
       <% end %>
-    </ul>
+    </div>
+          
   </div>
 </div>

@@ -1,0 +1,6 @@
+<li class='list-group-item'>
+  <%= link_to(truncate(active_task.task_name, length: 10, omission: ""), task_path(active_task)) %>
+  C:<%= active_task.percent_completed %>% 
+  A:<%= active_task.percent_active %>% 
+  P:<%= active_task.percent_pending %>%
+</li>
