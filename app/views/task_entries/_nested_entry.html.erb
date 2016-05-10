@@ -1,7 +1,27 @@
-<a href=<%= "\#entry-#{task_entry.id}" %> class='list-group-item' data-toggle='collapse'>
-  <i class='glyphicon glyphicon-chevron-right'></i>
-  <%= task_entry.time_display %>
-</a>
+<span class='list-group-item'>
+  <a href=<%= "\#entry-#{task_entry.id}" %> class='list-group-link' data-toggle='collapse'>
+    <i class='glyphicon glyphicon-chevron-right toggle-icon'></i>
+    <%= task_entry.time_display %>
+  </a>
+  <span class='list-group-ud-icons pull-right'>
+    <a href="#" class='list-group-delete ud-link'>
+      <i class='glyphicon glyphicon-pencil ud-icon'></i>
+    </a> 
+    <a href="#" class='list-group-update ud-link'>
+      <i class='glyphicon glyphicon-trash ud-icon'></i>
+    </a>
+  </span>
+</span>
 <div class='list-group collapse' id=<%= "entry-#{task_entry.id}"%>>
-  <p class='list-group-item'><%= task_entry.note %></p>
+  <span class='list-group-item'>
+    <span class='list-group-ud-icons pull-right'>
+      <a href="#" class='list-group-delete ud-link'>
+        <i class='glyphicon glyphicon-pencil ud-icon'></i>
+      </a> 
+      <a href="#" class='list-group-update ud-link'>
+        <i class='glyphicon glyphicon-trash ud-icon'></i>
+      </a>
+    </span>
+    <p class='list-group-text'><%= task_entry.note %></p>
+  </span>
 </div>

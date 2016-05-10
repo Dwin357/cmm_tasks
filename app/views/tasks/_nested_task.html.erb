@@ -1,7 +1,17 @@
-<a href=<%= "\#task-#{task.id}"%> class='list-group-item' data-toggle='collapse'>
-  <i class='glyphicon glyphicon-chevron-right'></i>
-  <%= task.task_name %>
-</a>
+<span class='list-group-item'>
+  <a href=<%= "\#task-#{task.id}"%> class='list-group-link' data-toggle='collapse'>
+    <i class='glyphicon glyphicon-chevron-right toggle-icon'></i>
+    <%= task.task_name %>
+  </a>
+  <span class='list-group-ud-icons pull-right'>
+    <a href="#" class='list-group-delete ud-link'>
+      <i class='glyphicon glyphicon-pencil ud-icon'></i>
+    </a> 
+    <a href="#" class='list-group-update ud-link'>
+      <i class='glyphicon glyphicon-trash ud-icon'></i>
+    </a>
+  </span>
+</span>
 <div class='list-group collapse' id=<%= "task-#{task.id}"%>>
   <% task.task_entries.each do |task_entry| %>
     <%= render partial: "task_entries/nested_entry", locals:{task_entry: task_entry}%>
