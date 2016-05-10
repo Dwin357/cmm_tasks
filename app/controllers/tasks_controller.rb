@@ -2,6 +2,7 @@ class TasksController < LayoutController
   def new
     @task    = Task.new
     @project = Project.find(params[:project_id])
+    render partial: "tasks/new_task_form", locals:{errors:[], project:@project, task: @task} if request.xhr?
   end
 
   def create

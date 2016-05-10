@@ -3,9 +3,6 @@
     <div class='well'>
       New Task
     </div>
-    <%= render partial: "shared/error_display", locals:{errors: flash[:errors]} %>
-    <%= form_for([@project, @task]) do |f| %>
-      <%= render partial: "task_form_fields", locals:{f:f} %>
-    <% end %>
+    <%= render partial: "new_task_form", locals:{errors: flash[:errors], project:@project, task: @task} %>
   </div>
 </div>

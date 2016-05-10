@@ -3,13 +3,14 @@
     <i class='glyphicon glyphicon-chevron-right toggle-icon'></i>
     <%= task_entry.time_display %>
   </a>
-  <span class='list-group-ud-icons pull-right'>
-    <a href="#" class='list-group-delete ud-link'>
-      <i class='glyphicon glyphicon-pencil ud-icon'></i>
+  <span class='list-group-ud-icons cud-toggle pull-right'>
+    <a href=<%="/task_entries/#{task_entry.id}/edit"%> class='list-group-update cud-link'>
+      <i class='glyphicon glyphicon-pencil cud-icon'></i>
     </a> 
-    <a href="#" class='list-group-update ud-link'>
-      <i class='glyphicon glyphicon-trash ud-icon'></i>
+    <a href=<%="/task_entries/#{task_entry.id}"%> data-method="delete" data-confirm="This action is final, please confirm" rel="nofollow" class='list-group-update cud-link'>
+      <i class='glyphicon glyphicon-trash cud-icon'></i>
     </a>
+
   </span>
 </span>
 <div class='list-group collapse' id=<%= "entry-#{task_entry.id}"%>>
