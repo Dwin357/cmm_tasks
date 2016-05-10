@@ -1,4 +1,5 @@
-<span class='list-group-item'>
+<span class='list-group-item ribbon-object'>
+<%= render partial: "shared/ribbon" if true %>
   <a href=<%= "\#task-#{task.id}"%> class='list-group-link' data-toggle='collapse'>
     <i class='glyphicon glyphicon-chevron-right toggle-icon'></i>
     <%= task.task_name %>
