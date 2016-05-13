@@ -13,8 +13,24 @@ module SessionsHelper
    session[:user_id] = user.id 
   end
 
+  def remember(user)
+    cookies.permanent.signed[:user_id] = user.id
+  end
+
   def logout
     session.delete(:user_id) if session[:user_id]
     @current_user = nil
   end  
+
+  def remembered?
+    cookies.signed[:user_id]
+  end
+
+  def remembered_user!
+    User.find(cookies.signed[:user_id])
+  end
+
+  def forget_me
+    cookies.delete :user_id
+  end
 end

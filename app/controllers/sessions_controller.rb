@@ -3,6 +3,10 @@ class SessionsController < ApplicationController
   layout "sessions"
 
   def new
+    if remembered?
+      login(remembered_user!)
+      redirect_to user_path(current_user!)
+    end
     flash[:data] = {}
   end
 
@@ -11,6 +15,7 @@ class SessionsController < ApplicationController
 
     if usr && usr.authentic_password?(session_params[:password])
       login(usr)
+      remember(usr) if session_params[:remember_me]
       redirect_to user_path(usr)
     else
       flash[:data]   = {username: session_params[:username]}
@@ -26,6 +31,6 @@ class SessionsController < ApplicationController
 
   private
   def session_params
-    params.require(:session).permit(:username, :password)
+    params.require(:session).permit(:username, :password, :remember_me)
   end
 end

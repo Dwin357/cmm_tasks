@@ -1,18 +1,27 @@
 $(document).ready(function() {
   list_group_toggle();
-  edit_item();
+  async_get();
+  set_async_delete();
 });
 
 
-var edit_item = function() {
+var set_async_delete = function () {
+  $('.list-group-delete')
+    .removeAttr("data-method")
+    .attr( "data-remote", "true" );
+};
+
+var async_get = function() {
   $('.cud-link').on('click', function(event) {
-    // event.preventDefault();
-    // var request = $.ajax({
-    //   url: $(this).find("a").attr("href")
-    // });
-    // request.done(function(response) {
-    //   $(this).parentUntil("span.list-group-item").replaceWith(response);
-    // });
+    event.preventDefault();
+
+    var request = $.get({
+      url: $(this).attr("href")
+    });
+
+    request.done(function(response) {
+      $(event.target).closest(".nested-collection").replaceWith(response);
+    });
   });
 };
 

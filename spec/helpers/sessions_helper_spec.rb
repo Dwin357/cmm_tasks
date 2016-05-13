@@ -7,6 +7,7 @@ RSpec.describe SessionsHelper, type: :helper do
   after :each do
     session.delete(:user_id)
     @current_user = nil
+    cookies.delete :user_id
   end
 
 
@@ -60,4 +61,31 @@ RSpec.describe SessionsHelper, type: :helper do
       expect(@current_user).to eq(@user)
     end
   end  
+
+  describe "#remembered_user!" do
+    it "blows up if cookie isn't set" do
+      expect{remembered_user!}.to raise_error(ActiveRecord::RecordNotFound)
+    end
+    it "returns user if cookie is set" do
+      remember(@user)
+      expect(remembered_user!).to eq(@user)
+    end
+  end
+
+  describe "#remember(user)" do
+    it "sets user id in a cookie" do
+      remember(@user)
+      expect(cookies.signed[:user_id]).to eq(@user.id)
+    end
+  end
+
+  describe "#remembered?" do
+    it "returns true if cookie is set" do
+      remember(@user)
+      expect(remembered?).to be_truthy
+    end
+    it "returns false if cookie isn't set" do
+      expect(remembered?).to be_falsey
+    end
+  end
 end 

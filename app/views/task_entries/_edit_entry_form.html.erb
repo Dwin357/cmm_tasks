@@ -1,0 +1,9 @@
+<div class='task-form nested-form'>
+  <%= render partial: "shared/error_display", locals:{errors: errors} %>
+  <%= form_tag("/task_entries/#{task_entry.id}", method: "patch") do %>
+    <%= render partial: "task_entry_form_fields", locals:{task_entry:task_entry} %>
+    <div class='from-group'>
+      <input name="commit" type="submit" value="Edit" />
+    </div>
+  <% end %>
+</div>
