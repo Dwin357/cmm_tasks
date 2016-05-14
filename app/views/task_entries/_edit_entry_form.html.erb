@@ -1,9 +1,11 @@
 <div class='entry-form-group nested-form-group'>
   <%= render partial: "shared/error_display", locals:{errors: errors} %>
-  <%= form_tag("/task_entries/#{task_entry.id}", method: "patch", class:"nested-patch-form") do %>
+  <%= form_tag("/task_entries/#{task_entry.id}", method: "patch", class:"nested-patch-form form-horizontal") do %>
     <%= render partial: "task_entry_form_fields", locals:{task_entry:task_entry} %>
     <div class='from-group'>
-      <input name="commit" type="submit" value="Edit" />
+      <div class='col-xs-10 col-xs-offset-1'>
+        <button type='submit' class='btn btn-primary'>Edit</button>
+      </div>
     </div>
   <% end %>
 </div>

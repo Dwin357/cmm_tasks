@@ -1,9 +1,9 @@
 class UsersController < LayoutController
   skip_before_action :require_login, only: [:new, :create]
+  layout 'sessions', only: [:new, :create]
 
   def new
     flash[:errors] = nil
-    @navbar_off = true
     @user = User.new
   end
 
@@ -11,10 +11,10 @@ class UsersController < LayoutController
     @user = User.new(user_params)
     if @user.save
       login(@user)
+      remember(@user) if wants_to_be_remembered?
       redirect_to user_path(@user)
     else
       flash[:errors] = @user.errors.full_messages
-      @navbar_off = true
       render "new"
     end
   end
@@ -63,6 +63,10 @@ class UsersController < LayoutController
   end
 
   private
+  def wants_to_be_remembered?
+    params.require(:user).permit(:remember_me)[:remember_me]
+  end
+
   def user_params
     params.require(:user).permit(:username, :password, :email)
   end

@@ -1,12 +1,12 @@
 $(document).ready(function() {
-  set_async_delete();
+  // set_async_delete();
 
   list_group_toggle();
   
-  async_get();
-  async_post();
-  async_patch();
-  async_delete();
+  // async_get();
+  // async_post();
+  // async_patch();
+  // async_delete();
 });
 
 

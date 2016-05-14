@@ -1,6 +1,6 @@
 <div class='task-form-group nested-form-group'>
   <%= render partial: "shared/error_display", locals:{errors: errors} %>
-  <%= form_for(task, html: {class: "nested-patch-form"}) do |f| %>
+  <%= form_for(task, html: {class: "nested-patch-form form-horizontal"}) do |f| %>
     <%= render partial: "task_form_fields", locals:{f:f} %>
   <% end %>
 </div>

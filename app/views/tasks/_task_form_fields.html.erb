@@ -1,7 +1,11 @@
 <div class='form-group'>
-  <%= f.label :task_name %>
-  <%= f.text_field :task_name %>
+  <%= f.label :task_name, class:"col-xs-2 control-label" %>
+  <div class='col-xs-9'>
+    <%= f.text_field :task_name, class:"form-control" %>
+  </div>
 </div>
 <div class='form-group'>
-  <%= f.submit %>  
+  <div class='col-xs-10 col-xs-offset-1'>
+    <%= f.submit "Confirm", class:"btn btn-primary" %>  
+  </div>
 </div>

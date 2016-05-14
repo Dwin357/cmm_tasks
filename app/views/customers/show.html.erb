@@ -1,22 +1,18 @@
-<div class='row'>
-  <div class='col-xs-10 col-xs-offset-1'>
-    <h2><%= @customer.company %></h2>
-    <p><%= @customer.address %></p>
-    <p><%= "#{@customer.city}, #{@customer.state} #{@customer.zip}" %></p>
-    <br>
-    <p>
-      <%= link_to("<< Customer Index", customers_path) %> - 
-      <%= link_to("Edit Customer", edit_customer_path(@customer)) %> - 
-      <%= link_to "Add Project", new_customer_project_path(@customer) %>
-    </p>
+<h2><%= @customer.company %></h2>
+<p><%= @customer.address %></p>
+<p><%= "#{@customer.city}, #{@customer.state} #{@customer.zip}" %></p>
+<br>
+<p>
+  <%= link_to("<- Customer Index", customers_path) %> - 
+  <%= link_to("Edit Customer", edit_customer_path(@customer)) %> - 
+  <%= link_to "Add Project", new_customer_project_path(@customer) %>
+</p>
 
-    <div class='well'>
-      <p>Projects</p>
-    </div>
-    <ul class='list-group'>
-      <% @customer.projects.each do |project| %>
-        <%= render partial: "projects/project_line_item", locals:{project: project} %>
-      <% end %>
-    </ul>
-  </div>
+<div class='well'>
+  <p>Projects</p>
 </div>
+<ul class='list-group'>
+  <% @customer.projects.each do |project| %>
+    <%= render partial: "projects/project_line_item", locals:{project: project} %>
+  <% end %>
+</ul>

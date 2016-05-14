@@ -1,18 +1,37 @@
-<%= form_for(user) do |f| %>
+<%= form_for(user, html:{class:"form-horizontal"}) do |f| %>
   <div class='form-group'>
-      <%= f.label :username %>
-      <%= f.text_field :username, placeholder: "AwesomeSauce" %>
+      <%= f.label :username, class:"col-xs-2 control-label" %>
+      <div class='col-xs-9'>
+        <%= f.text_field :username, class: "form-control", placeholder: "AwesomeSauce" %>
+      </div>
   </div>
   <div class='form-group'>
-    <%= f.label :password %>
-    <%= f.password_field :password, placeholder: "Pa$$word" %>
+    <%= f.label :password, class: 'col-xs-2 control-label' %>
+    <div class='col-xs-9'>
+      <%= f.password_field :password, class:"form-control", placeholder: "Pa$$word" %>
+    </div>
   </div>
   <div class='form-group'>
-    <%= f.label :password_confirm %>
-    <%= f.password_field :password_confirm, placeholder: "Pa$$word" %>
+    <%= f.label :password_confirm, class:"col-xs-2 control-label" %>
+    <div class='col-xs-9'>
+      <%= f.password_field :password_confirm, class:"form-control", placeholder: "Pa$$word" %>
+    </div>
   </div>
-  <div id="password-feedback"> </div>
   <div class='form-group'>
-    <%= f.submit "Signup" %>
+    <div class='col-xs-9 col-xs-offset-2' id='password-feedback'></div>
+  </div>
+  <div class='form-group'>
+    <div class='col-xs-9 col-xs-offset-2'>
+      <div class='checkbox'>
+        <label>
+          <input type='checkbox' name='user[remember_me]'> Remember me
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class='form-group'>
+    <div class='col-xs-10 col-xs-offset-2'>
+      <%= f.submit "Signup", class: "btn btn-primary" %>
+    </div>
   </div>
 <% end %>

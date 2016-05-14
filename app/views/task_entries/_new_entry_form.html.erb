@@ -1,9 +1,11 @@
 <div class='entry-form-group nested-form-group'>
   <%= render partial: "shared/error_display", locals:{errors: errors} %>
-  <%= form_tag("/tasks/#{task.id}/task_entries", class:"nested-post-form") do %>
+  <%= form_tag("/tasks/#{task.id}/task_entries", class:"nested-post-form form-horizontal") do %>
     <%= render partial: "task_entry_form_fields", locals:{task_entry:task_entry} %>
     <div class='from-group'>
-      <input name="commit" type="submit" value="Create" />
+      <div class='col-xs-10 col-xs-offset-1'>
+        <button type='submit' class='btn btn-primary'>Create</button>
+      </div>
     </div>
   <% end %>
 </div>

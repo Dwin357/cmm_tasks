@@ -1,24 +1,38 @@
-<form method='post' action='/sessions'>
+<form method='post' action='/sessions' class='form-horizontal'>
   <%= token_tag %>
   <div class='form-group'>
-    <label for='username'>Username</label>
-    <input 
-      type='text' 
-      name='session[username]' 
-      placeholder='AwesomeSauce' 
-      class='form-control'
-      <%= "value=#{session[:username]}" if session[:username]%>
-    >
+    <label for='username' class='control-label col-xs-2'>
+      Username
+    </label>
+    <div class='col-xs-9'>
+      <input 
+        type='text' 
+        name='session[username]' 
+        placeholder='AwesomeSauce' 
+        class='form-control'
+        <%= "value=#{session[:username]}" if session[:username]%>>
+    </div>
   </div>
   <div class='form-group'>
-    <label for='password'>Password</label>
-    <input type='password' name='session[password]' class='form-control' placeholder='Pa$$word'>
-  </div>
-  <div class='checkbox'>
-    <input type='checkbox' class='form-control' name='session[remember_me]' />
-    <label for='remember_me'>Remember me</label>
+    <label for='password' class='control-label col-xs-2'>
+      Password
+    </label>
+    <div class='col-xs-9'>
+      <input type='password' name='session[password]' class='form-control' placeholder='Pa$$word'>
+    </div>
   </div>
   <div class='form-group'>
-    <input type='submit' value='Login'>
+    <div class='col-xs-9 col-xs-offset-2'>
+      <div class='checkbox'>
+        <label>
+          <input type='checkbox' name='session[remember_me]'> Remember me
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class='form-group'>
+    <div class='col-xs-10 col-xs-offset-2'>
+      <button type='submit' class='btn btn-default'>Login</button>
+    </div>
   </div>
 </form>

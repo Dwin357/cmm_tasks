@@ -1,21 +1,24 @@
 <div class='form-group'>
-  <label for='start_date'>Start Date</label>
-  <input type='date' name='task_entry[s_date]' value="<%= task_entry.s_date %>"/>
-</div>
-<div class='form-group'>
-  <label for='start_at'>Start Time</label>
-  <input type='time' name='task_entry[s_time]' value="<%= task_entry.s_time%>"/>
-</div>
-<div class='form-group'>
-  <label for='end_date'>End Date</label>
-  <input type='date' name='task_entry[e_date]' value="<%= task_entry.e_date%>"/>
-</div>
-<div class='form-group'>
-  <label for='end_at'>End Time</label>
-  <input type='time' name='task_entry[e_time]' 
-    value="<%= task_entry.e_time%>"/>
+  <label for='start_date' class='col-xs-1 control-label'>From</label>
+  <div class='col-xs-3'>
+    <input type='date' class='form-control' name='task_entry[s_date]' value="<%= task_entry.s_date %>"/>
+  </div>
+  <label for='start_at' class='sr-only'>Start Time</label>
+  <div class='col-xs-2'>
+    <input type='time' class='form-control' name='task_entry[s_time]' value="<%= task_entry.s_time%>"/>
+  </div>
+  <label for='end_date' class='col-xs-1 control-label'>To</label>
+  <div class='col-xs-3'>
+    <input type='date' class='form-control' name='task_entry[e_date]' value="<%= task_entry.e_date%>"/>
+  </div>
+  <label for='end_at' class='sr-only'>End Time</label>
+  <div class='col-xs-2'>
+    <input type='time' class='form-control' name='task_entry[e_time]' value="<%= task_entry.e_time%>"/>
+  </div>
 </div>    
 <div class='form-group'>
-  <label for='note'>Note</label>
-  <input type='textarea' name='task_entry[note]' value="<%=task_entry.note%>"/>
+  <label for='note' class='control-label col-xs-1'>Note</label>
+  <div class='col-xs-11'>
+    <textarea class='form-control' rows='5' name='task_entry[note]' value="<%=task_entry.note%>"></textarea>
+  </div>
 </div>
