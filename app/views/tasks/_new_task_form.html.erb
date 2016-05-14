@@ -1,6 +1,6 @@
-<div class='task-form nested-form'>
+<div class='task-form-group nested-form-group'>
   <%= render partial: "shared/error_display", locals:{errors: errors} %>
-  <%= form_for([project, task]) do |f| %>
+  <%= form_for([project, task], html: {class: "nested-post-form"}) do |f| %>
     <%= render partial: "task_form_fields", locals:{f:f} %>
   <% end %>
 </div>

@@ -1,21 +1,21 @@
 <div class='task-collection nested-collection'>
   <span class='list-group-item ribbon-object'>
-    <%= render partial: "shared/ribbon" if true %>
+    <%= render partial: "shared/ribbon" if task.active? %>
 
     <a href=<%= "\#task-#{task.id}"%> class='list-group-link' data-toggle='collapse'>
       <i class='glyphicon glyphicon-chevron-right toggle-icon'></i>
       <%= task.task_name %>
     </a>
 
-    <a href=<%="/tasks/#{task.id}/task_entries/new"%> class='list-group-create cud-link hidden cud-toggle'>
+    <a href=<%="/tasks/#{task.id}/task_entries/new"%> class='list-group-create cu-link hidden cud-toggle'>
       <i class='glyphicon glyphicon-plus cud-icon'></i>
     </a>
 
     <span class='list-group-ud-icons cud-toggle pull-right'>
-<!--       <a href=<%#="/tasks/#{task.id}/edit"%> class='list-group-update cud-link'>
+      <a href=<%="/tasks/#{task.id}/edit"%> class='list-group-update cu-link'>
         <i class='glyphicon glyphicon-pencil cud-icon'></i>
-      </a>  -->
-      <a href=<%="/tasks/#{task.id}"%> data-method="delete" data-confirm="This action is final, please confirm" rel="nofollow" class='list-group-delete cud-link'>
+      </a> 
+      <a href=<%="/tasks/#{task.id}"%> data-method="delete" data-confirm="This action is final, please confirm" rel="nofollow" class='list-group-delete'>
         <i class='glyphicon glyphicon-trash cud-icon'></i>
       </a>
     </span>

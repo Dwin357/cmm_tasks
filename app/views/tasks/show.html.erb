@@ -2,7 +2,7 @@
   <div class='col-xs-10 col-xs-offset-1'>
     <div class='well'>
       <h2><%= @task.task_name %></h2>
-      <p>Assigned to <%= @task.user.username || "unassigned" %></p>
+      <p>Assigned to <%= assigned_to(@task)%></p>
     </div>
     <br>
     <p>

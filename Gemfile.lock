@@ -47,7 +47,7 @@ GEM
       sass (>= 3.3.4)
     brakeman (3.3.0)
     builder (3.2.2)
-    byebug (8.2.5)
+    byebug (9.0.0)
     code_analyzer (0.4.5)
       sexp_processor
     coffee-rails (4.1.1)
@@ -71,6 +71,12 @@ GEM
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
+    jasmine (2.4.0)
+      jasmine-core (~> 2.4)
+      phantomjs
+      rack (>= 1.2.1)
+      rake
+    jasmine-core (2.4.1)
     jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -95,6 +101,7 @@ GEM
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     pg (0.18.4)
+    phantomjs (2.1.1.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -151,7 +158,7 @@ GEM
       rspec-mocks (~> 3.4.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
-    ruby-progressbar (1.8.0)
+    ruby-progressbar (1.8.1)
     sass (3.4.22)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -173,7 +180,7 @@ GEM
       sprockets (>= 3.0.0)
     thor (0.19.1)
     thread_safe (0.3.5)
-    tilt (2.0.2)
+    tilt (2.0.3)
     turbolinks (2.5.3)
       coffee-rails
     tzinfo (1.2.2)
@@ -197,6 +204,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   database_cleaner
   factory_girl_rails (~> 4.0)
+  jasmine
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks

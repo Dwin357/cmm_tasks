@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
+  render_views
+
   it "has a valid factory" do
     expect(FactoryGirl.create(:task)).to be_valid
   end
@@ -38,9 +40,17 @@ RSpec.describe TasksController, type: :controller do
     end
 
     describe "GET #new" do
-      it 'renders new tasks page' do
-        get :new, project_id: @task_project.id
-        expect(response).to render_template(:new)
+      context 'html' do
+        it 'renders new tasks page' do
+          get :new, project_id: @task_project.id
+          expect(response).to render_template(:new)
+        end
+      end
+      context 'ajax' do
+        it 'renders the new tasks form' do
+          xhr :get, :new, project_id: @task_project.id
+          expect(response).to render_template(partial:"_new_task_form")
+        end
       end
     end
     describe 'GET #edit' do
@@ -50,13 +60,25 @@ RSpec.describe TasksController, type: :controller do
       after :each do
         @tsk = nil
       end
-      it 'serves the edit page' do
-        get :edit, id:@tsk
-        expect(response).to render_template(:edit)
+      context 'html' do
+        it 'serves the edit page' do
+          get :edit, id:@tsk
+          expect(response).to render_template(:edit)
+        end
+        it 'populates correct task model' do
+          get :edit, id:@tsk
+          expect(assigns(:task)).to eq(@tsk)
+        end
       end
-      it 'populates correct task model' do
-        get :edit, id:@tsk
-        expect(assigns(:task)).to eq(@tsk)
+      context 'ajax' do
+        it 'populates correct task model' do
+          xhr :get, :edit, id:@tsk
+          expect(assigns(:task)).to eq(@tsk)
+        end
+        it 'serves the edit form' do
+          xhr :get, :edit, id:@tsk
+          expect(response).to render_template(partial: "_edit_task_form")
+        end
       end
     end
     describe 'GET #show' do
@@ -67,11 +89,11 @@ RSpec.describe TasksController, type: :controller do
         @tsk = nil
       end
       it 'serves the show page' do
-        get :show, id:@tsk
+        get :show, id:@tsk.id
         expect(response).to render_template(:show)
       end
       it 'populates correct task model' do
-        get :show, id:@tsk
+        get :show, id:@tsk.id
         expect(assigns(:task)).to eq(@tsk)
       end
     end
@@ -82,14 +104,27 @@ RSpec.describe TasksController, type: :controller do
       after :each do
         @tsk = nil
       end
-      it 'removes the record from the db' do
-        expect{
+      context 'html' do
+        it 'removes the record from the db' do
+          expect{
+            delete :destroy, id:@tsk
+          }.to change(Task, :count).by(-1)
+        end
+        it 'redirects to project show page' do
           delete :destroy, id:@tsk
-        }.to change(Task, :count).by(-1)
+          expect(response).to redirect_to(project_path(@task_project))
+        end
       end
-      it 'redirects to project show page' do
-        delete :destroy, id:@tsk
-        expect(response).to redirect_to(project_path(@task_project))
+      context 'ajax' do
+        it 'removes the record from the db' do
+          expect{
+            xhr :delete, :destroy, id:@tsk
+          }.to change(Task, :count).by(-1)
+        end
+        it 'gives a 200 status' do
+          xhr :delete, :destroy, id:@tsk
+          expect(response).to have_http_status(200)
+        end
       end
     end
     describe 'POST #update' do
@@ -100,18 +135,35 @@ RSpec.describe TasksController, type: :controller do
         after :each do
           @tsk = nil
         end
-        it 'locates the correct task' do
-          put :update, id:@tsk, task: FactoryGirl.attributes_for(:alt_task)
-          expect(assigns(:task)).to eq(@tsk)
+        context 'html' do
+          it 'locates the correct task' do
+            put :update, id:@tsk, task: FactoryGirl.attributes_for(:alt_task)
+            expect(assigns(:task)).to eq(@tsk)
+          end
+          it 'updates model attributes' do
+            put :update, id:@tsk, task:FactoryGirl.attributes_for(:alt_task)
+            @tsk.reload
+            expect(@tsk).to have_attributes(FactoryGirl.attributes_for(:alt_task))
+          end
+          it 'redirects to task show page' do
+            put :update, id:@tsk, task:FactoryGirl.attributes_for(:alt_task)
+            expect(response).to redirect_to(task_path(@tsk))
+          end
         end
-        it 'updates model attributes' do
-          put :update, id:@tsk, task:FactoryGirl.attributes_for(:alt_task)
-          @tsk.reload
-          expect(@tsk).to have_attributes(FactoryGirl.attributes_for(:alt_task))
-        end
-        it 'redirects to task show page' do
-          put :update, id:@tsk, task:FactoryGirl.attributes_for(:alt_task)
-          expect(response).to redirect_to(task_path(@tsk))
+        context 'ajax' do
+          it 'locates correct task' do
+            xhr :put, :update, id:@tsk, task:FactoryGirl.attributes_for(:alt_task)
+            expect(assigns(:task)).to eq(@tsk)
+          end
+          it 'updates model attributes' do
+            xhr :put, :update, id:@tsk, task:FactoryGirl.attributes_for(:alt_task)
+            @tsk.reload
+            expect(@tsk).to have_attributes(FactoryGirl.attributes_for(:alt_task))
+          end
+          # it 'redirects to task show page' do
+          #   xhr :put, :update, id:@tsk, task:FactoryGirl.attributes_for(:alt_task)
+          #   expect(response).to render
+          # end
         end
       end
       # # no invalid params yet

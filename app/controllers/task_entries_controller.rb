@@ -2,15 +2,12 @@ class TaskEntriesController < LayoutController
   def new
     @task_entry = TaskEntry.new()
     @task = Task.find(params[:task_id])
+ 
+    render partial: "task_entries/new_entry_form", locals:{errors:[], task:@task, task_entry:@task_entry} if request.xhr?
 
     # if request.xhr?
-    #   render partial: "task_entries/new_entry_form", locals: do
-    #     errors:[],
-    #     task: @task,
-    #     task_entry: @task_entry
-    #   end
+    #   render :json => { :response => render_to_string("task_entries/_new_entry_form", layout: false, locals:{errors:[], task:@task, task_entry:@task_entry}) }
     # end
-    render partial: "task_entries/new_entry_form", locals:{errors:[], task:@task, task_entry:@task_entry} if request.xhr?
   end
 
   def create
@@ -20,16 +17,30 @@ class TaskEntriesController < LayoutController
     valid_create = @task_entry.update(task_entry_params)
 
     if ajax && valid_create
-      render partial: "task_entries/nested_entry", locals:{task_entry: @task_entry}
+      # render partial: "tasks/nested_task", locals:{task: task}
+      render :json => {
+        :response => render_to_string(
+          "tasks/_nested_task", 
+          layout:false, 
+          locals:{task: task}
+        )
+      }
 
     elsif valid_create #implicitly a non-ajax valid request
       redirect_to task_entry_path(@task_entry)
 
     elsif ajax #implicitly an ajax non-valid create
-      render partial: "task_entries/new_entry_form", 
-        locals:{errors:@task_entry.errors.full_messages, 
-                task:task, 
-                task_entry:@task_entry}
+      render :json => {
+        :response => render_to_string(
+          "task_entries/_new_entry_form", 
+          layout: false, 
+          locals:{ 
+            errors: @task_entry.errors.full_messages, 
+            task:task, 
+            task_entry:@task_entry
+          }
+        )
+      }
 
     else #implicitely a non-ajax non-valid create
       flash[:errors] = @task_entry.errors.full_messages
@@ -41,39 +52,51 @@ class TaskEntriesController < LayoutController
     task_entry = TaskEntry.find(params[:id])
     @task = task_entry.task
     task_entry.destroy
-    redirect_to task_path(@task)
+    
+    if request.xhr?
+      render nothing: true
+    else
+      redirect_to task_path(@task)
+    end
   end
 
   def edit
     @task_entry = TaskEntry.find(params[:id])
 
-    # if request.xhr?
-    #   render partial: "task_entries/edit_entry_form", locals:do
-    #     errors:[],
-    #     task_entry: @task_entry
-    #   end
-    # end
     render partial: "task_entries/edit_entry_form", locals:{errors:[], task_entry:@task_entry} if request.xhr?
   end
 
   def update
     @task_entry  = TaskEntry.find(params[:id])
+    task         = @task_entry.task
     ajax         = request.xhr?
     valid_update = @task_entry.update(task_entry_params)
 
     if valid_update && ajax
-      render partial: "task_entries/nested_entry", locals:{task_entry: @task_entry}
+      # render partial: "tasks/nested_task", locals:{task: task}
+      render json: {
+        response: render_to_string(
+          "tasks/_nested_task", 
+          layout: false, 
+          locals:{ task:task }
+        )
+      }
 
     elsif valid_update #implicitly non-ajax
       redirect_to task_entry_path(@task_entry)
 
     elsif ajax #implicitly non-valid update
-      # render partial: "task_entries/edit_entry_form", locals:do
-      #   errors: @task_entry.errors.full_messages,
-      #   task_entry: @task_entry
-      # end
-      render partial: "task_entries/edit_entry_form", locals:{errors:@task_entry.errors.full_messages, task_entry: @task_entry}
-
+      # render partial: "task_entries/edit_entry_form", locals:{errors:@task_entry.errors.full_messages, task_entry: @task_entry}
+      render json: {
+        response: render_to_string(
+          "task_entries/_edit_entry_form",
+          layout: false,
+          locals: {
+            errors: @task_entry.errors.full_messages,
+            task_entry: @task_entry
+          }
+        )
+      }
     else #implicitly non-ajax non-valid update
       flash[:errors] = @task_entry.errors.full_messages
       render :edit

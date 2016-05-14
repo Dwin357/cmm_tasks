@@ -6,15 +6,17 @@
       type='text' 
       name='session[username]' 
       placeholder='AwesomeSauce' 
+      class='form-control'
       <%= "value=#{session[:username]}" if session[:username]%>
     >
   </div>
   <div class='form-group'>
     <label for='password'>Password</label>
-    <input type='password' name='session[password]' placeholder='Pa$$word'>
+    <input type='password' name='session[password]' class='form-control' placeholder='Pa$$word'>
   </div>
   <div class='checkbox'>
-  <label><input type='checkbox' name='session[remember_me]'> Remember me</label>
+    <input type='checkbox' class='form-control' name='session[remember_me]' />
+    <label for='remember_me'>Remember me</label>
   </div>
   <div class='form-group'>
     <input type='submit' value='Login'>
