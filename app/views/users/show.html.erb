@@ -5,7 +5,7 @@
 
 <br>
 
-<div class='list-group list-group-root well'>
+<div class='list-group tasks-container'>
   <% @user.tasks.each do |task| %>
     <%= render partial: "tasks/nested_task", locals:{task: task} %>
   <% end %>

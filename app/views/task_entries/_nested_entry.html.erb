@@ -1,35 +1,27 @@
-<div class='entry-collection nested-collection'>
-  <span class='list-group-item ribbon-object'>
-    <%= render partial: "shared/ribbon" if task_entry.active? %>
+<div class='entry-object list-group-item ribbon-object' id=<%="entry-#{task_entry.id}-object"%>>
 
-    <a href=<%= "\#entry-#{task_entry.id}" %> class='list-group-link' data-toggle='collapse'>
+  <%= render partial: "shared/ribbon" if task_entry.active? %>
+  <span class='entry-headline'>
+
+    <a data-target=<%= "\#entry-#{task_entry.id}-details" %> class='list-group-link pointer' data-toggle='collapse'>
       <i class='glyphicon glyphicon-chevron-right toggle-icon'></i>
       <%= task_entry.time_display %>
     </a>
 
-    <span class='list-group-ud-icons cud-toggle pull-right'>
-      <a href=<%="/task_entries/#{task_entry.id}/edit"%> class='list-group-update cu-link'>
-        <i class='glyphicon glyphicon-pencil cud-icon'></i>
-      </a> 
-      <a href=<%="/task_entries/#{task_entry.id}"%> data-method="delete" data-confirm="This action is final, please confirm" rel="nofollow" class='list-group-delete'>
-        <i class='glyphicon glyphicon-trash cud-icon'></i>
-      </a>
-    </span>
-
   </span>
-  <div class='list-group collapse' id=<%= "entry-#{task_entry.id}"%>>
-    <span class='list-group-item'>
 
-      <span class='list-group-ud-icons cud-toggle pull-right'>
-        <a href=<%="/task_entries/#{task_entry.id}/edit"%> class='list-group-update cu-link'>
-          <i class='glyphicon glyphicon-pencil cud-icon'></i>
+  <div class='collapse' id=<%= "entry-#{task_entry.id}-details"%>>
+
+      <span class='pull-right'>
+        <a href=<%="/task_entries/#{task_entry.id}/edit"%> class=''>
+          <i class='glyphicon glyphicon-pencil'></i>
         </a> 
-        <a href=<%="/task_entries/#{task_entry.id}"%> data-method="delete" data-confirm="This action is final, please confirm" rel="nofollow" class='list-group-delete'>
-          <i class='glyphicon glyphicon-trash cud-icon'></i>
+        <a href=<%="/task_entries/#{task_entry.id}"%> data-method="delete" data-confirm="This action is final, please confirm" rel="nofollow" class=''>
+          <i class='glyphicon glyphicon-trash'></i>
         </a>
       </span>
-
+      <br>
       <p class='list-group-text'><%= task_entry.note %></p>
-    </span>
+
   </div>
 </div>

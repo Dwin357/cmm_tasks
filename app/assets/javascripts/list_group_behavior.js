@@ -89,6 +89,14 @@ var list_group_toggle = function() {
     $('.toggle-icon', this)
       .toggleClass('glyphicon-chevron-right')
       .toggleClass('glyphicon-chevron-down');
-    $(this).siblings('.cud-toggle').toggleClass('hidden');
+    $(this).siblings('.cud-buttons').children(".cud-link").toggleClass('hidden');
+    pass_on_ribbon(this);
   });
+};
+
+var pass_on_ribbon = function(el) {
+  if ($(el).attr("data-target").match(/#task-/) != null) {
+    $(el).closest(".ribbon-object").children(".ribbon-object")
+      .toggleClass('hidden');
+  }
 };

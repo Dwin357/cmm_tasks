@@ -1,27 +1,27 @@
-<div class='task-collection nested-collection'>
-  <span class='list-group-item ribbon-object'>
+<div class='task-object' id=<%= "task-#{task.id}-object"%>>
+
+  <span class='list-group-item task-details ribbon-object' id=<%= "task-#{task.id}-details"%>>
     <%= render partial: "shared/ribbon" if task.active? %>
 
-    <a href=<%= "\#task-#{task.id}"%> class='list-group-link' data-toggle='collapse'>
+    <a data-target=<%= "\#task-#{task.id}-entries"%> class='list-group-link pointer' data-toggle='collapse'>
       <i class='glyphicon glyphicon-chevron-right toggle-icon'></i>
       <%= task.task_name %>
     </a>
 
-    <a href=<%="/tasks/#{task.id}/task_entries/new"%> class='list-group-create cu-link hidden cud-toggle'>
-      <i class='glyphicon glyphicon-plus cud-icon'></i>
-    </a>
-
-    <span class='list-group-ud-icons cud-toggle pull-right'>
-      <a href=<%="/tasks/#{task.id}/edit"%> class='list-group-update cu-link'>
-        <i class='glyphicon glyphicon-pencil cud-icon'></i>
+    <span class='cud-buttons pull-right'>
+      <a href=<%="/tasks/#{task.id}/task_entries/new"%> class='cud-link hidden'>
+        <i class='glyphicon glyphicon-plus'></i>
+      </a>
+      <a href=<%="/tasks/#{task.id}/edit"%> class='cud-link'>
+        <i class='glyphicon glyphicon-pencil'></i>
       </a> 
-      <a href=<%="/tasks/#{task.id}"%> data-method="delete" data-confirm="This action is final, please confirm" rel="nofollow" class='list-group-delete'>
-        <i class='glyphicon glyphicon-trash cud-icon'></i>
+      <a href=<%="/tasks/#{task.id}"%> data-method="delete" data-confirm="This action is final, please confirm" rel="nofollow" class='cud-link'>
+        <i class='glyphicon glyphicon-trash'></i>
       </a>
     </span>
-
   </span>
-  <div class='list-group collapse' id=<%= "task-#{task.id}"%>>
+
+  <div class='list-group collapse entries-container' id=<%= "task-#{task.id}-entries"%>>
     <% task.task_entries.each do |task_entry| %>
       <%= render partial: "task_entries/nested_entry", locals:{task_entry: task_entry}%>
     <% end %>
