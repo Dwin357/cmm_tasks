@@ -4,10 +4,6 @@ class TaskEntriesController < LayoutController
     @task = Task.find(params[:task_id])
  
     render partial: "task_entries/new_entry_form", locals:{errors:[], task:@task, task_entry:@task_entry} if request.xhr?
-
-    # if request.xhr?
-    #   render :json => { :response => render_to_string("task_entries/_new_entry_form", layout: false, locals:{errors:[], task:@task, task_entry:@task_entry}) }
-    # end
   end
 
   def create
@@ -71,7 +67,6 @@ class TaskEntriesController < LayoutController
     valid_update = @task_entry.update(task_entry_params)
 
     if valid_update && ajax
-      # render partial: "tasks/nested_task", locals:{task: task}
       render :json => {
         :response => render_to_string(
           "task_entries/_nested_entry", 
@@ -84,7 +79,6 @@ class TaskEntriesController < LayoutController
       redirect_to task_entry_path(@task_entry)
 
     elsif ajax #implicitly non-valid update
-      # render partial: "task_entries/edit_entry_form", locals:{errors:@task_entry.errors.full_messages, task_entry: @task_entry}
       render json: {
         response: render_to_string(
           "task_entries/_edit_entry_form",

@@ -4,20 +4,14 @@ $(document).ready(function() {
   
 });
 
-var async_listeners = function() {
-  
+var async_listeners = function() {  
   async_get_new();
   async_cancel();
   async_get_edit();
   async_post();
   async_patch();
   async_delete();
-
-  // set_async_delete();
-  // async_delete();
 };
-
-
 
 
 var async_get_new = function() {
@@ -118,40 +112,6 @@ var set_delete_to_async = function () {
     .removeAttr("data-method")
     .attr( "data-remote", "true" );
 };
-
-// var async_delete = function() {
-//   $('body').on('clik', '.list-group-delete', function(event){
-//     var request = $.ajax({
-//       url: $(this).attr("href"),
-//       method: "DELETE"
-//     });
-
-
-//     request.success(function(){
-//       $(event.target).closest(".nested-collection").remove();
-//       alert("Successfully Deleted");
-//     });
-//   })
-// };
-
-
-// var async_patch = function() {
-//   $('body').on('submit', '.nested-patch-form', function(event){
-//     event.preventDefault();
-
-//     var request = $.ajax({
-//       url: $(this).attr("action"),
-//       method: "PATCH",
-//       data: $(this).serialize(),
-//       dataType: "json"
-//     });
-
-//     request.done(function(response){
-//       $(event.target).closest(".nested-form-group").replaceWith(response['response']);
-//     });
-//   });
-// };
-
 
 var list_group_toggle = function() {
   $('body').on('click', '.list-group-link', function() {

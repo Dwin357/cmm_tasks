@@ -4,7 +4,6 @@ class TasksController < LayoutController
     @project = Project.find(params[:project_id])
 
     render partial: "tasks/new_task_form", locals:{errors:[], project:@project, task: @task} if request.xhr?
-
   end
 
   def create
@@ -14,7 +13,6 @@ class TasksController < LayoutController
     ajax         = request.xhr?
     valid_create = @task.save
 
-
     if ajax && valid_create
       render json: {
         response: render_to_string(
@@ -23,16 +21,11 @@ class TasksController < LayoutController
           locals: {task:@task}
         )
       }
-      # render partial: "tasks/nested_task", locals:{task: @task}
 
     elsif valid_create #implicitly a non-ajax valid request
       redirect_to task_path(@task)
 
     elsif ajax #implicitly an ajax non-valid create
-      # render partial: "tasks/new_task_form", 
-      #   locals:{errors:@task.errors.full_messages, 
-      #           project:project, 
-      #           task: @task}
       render json: {
         response: render_to_string(
           "tasks/_new_task_form",
@@ -74,7 +67,6 @@ class TasksController < LayoutController
     valid_update = @task.update(task_params)
 
     if valid_update && ajax
-      # render partial: "tasks/nested_task", locals:{task: @task}
       render :json => {
         response: render_to_string(
           "tasks/_nested_task",
@@ -87,9 +79,6 @@ class TasksController < LayoutController
       redirect_to task_path(@task)
 
     elsif ajax #implicitly non-valid update
-      # render partial: "tasks/edit_task_form", 
-      #   locals:{errors:@task.errors.full_messages, 
-      #           task:@task}
       render :json => {
         response: render_to_string(
           "tasks/_edit_task_form",
