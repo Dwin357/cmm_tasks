@@ -56,10 +56,9 @@ class TasksController < LayoutController
     @project = task.project
     task.destroy
 
-    if request.xhr?
-      render nothing: true
-    else
-      redirect_to project_path(@project)
+    respond_to do |format|
+      format.html { redirect_to project_path(@project) }
+      format.js { render nothing: true }
     end
   end
 
@@ -110,6 +109,8 @@ class TasksController < LayoutController
 
   def show
     @task = Task.includes(:task_entries, :project, :user).find(params[:id])
+
+    render partial: "tasks/nested_task", locals:{task: @task} if request.xhr?
   end
 
   private

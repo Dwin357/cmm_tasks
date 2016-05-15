@@ -17,12 +17,11 @@ class TaskEntriesController < LayoutController
     valid_create = @task_entry.update(task_entry_params)
 
     if ajax && valid_create
-      # render partial: "tasks/nested_task", locals:{task: task}
       render :json => {
         :response => render_to_string(
-          "tasks/_nested_task", 
+          "task_entries/_nested_entry", 
           layout:false, 
-          locals:{task: task}
+          locals:{task_entry: @task_entry}
         )
       }
 
@@ -53,10 +52,9 @@ class TaskEntriesController < LayoutController
     @task = task_entry.task
     task_entry.destroy
     
-    if request.xhr?
-      render nothing: true
-    else
-      redirect_to task_path(@task)
+    respond_to do |format|
+      format.html { redirect_to task_path(@task) }
+      format.js { render nothing: true }
     end
   end
 
@@ -74,11 +72,11 @@ class TaskEntriesController < LayoutController
 
     if valid_update && ajax
       # render partial: "tasks/nested_task", locals:{task: task}
-      render json: {
-        response: render_to_string(
-          "tasks/_nested_task", 
-          layout: false, 
-          locals:{ task:task }
+      render :json => {
+        :response => render_to_string(
+          "task_entries/_nested_entry", 
+          layout:false, 
+          locals:{task_entry: @task_entry}
         )
       }
 
@@ -105,6 +103,8 @@ class TaskEntriesController < LayoutController
 
   def show
     @task_entry = TaskEntry.includes(:task).find(params[:id])
+
+    render partial: "task_entries/nested_entry", locals:{task_entry: @task_entry} if request.xhr?
   end
 
   private

@@ -19,6 +19,14 @@
 <div class='form-group'>
   <label for='note' class='control-label col-xs-1'>Note</label>
   <div class='col-xs-11'>
-    <textarea class='form-control' rows='5' name='task_entry[note]' value="<%=task_entry.note%>"></textarea>
+    <textarea class='form-control' rows='3' name='task_entry[note]'><%=task_entry.note%></textarea>
+  </div>
+</div>
+<div class='form-group'>
+  <div class='col-xs-1 col-xs-offset-1'>
+    <button type='submit' class='btn btn-primary'>Confirm</button>
+  </div>
+  <div class='col-xs-10'>
+    <button type='submit' class='btn btn-default cancel-btn cncl'>Cancel</button>
   </div>
 </div>

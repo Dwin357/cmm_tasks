@@ -1,6 +1,7 @@
-<div class='task-object' id=<%= "task-#{task.id}-object"%>>
+<div class='task-object ribbon-wrapped-object nested-object' id=<%= "task-#{task.id}-object"%>>
 
-  <span class='list-group-item task-details ribbon-object' id=<%= "task-#{task.id}-details"%>>
+  <div class='list-group-item task-details task-headline' id=<%= "task-#{task.id}-details"%>>
+
     <%= render partial: "shared/ribbon" if task.active? %>
 
     <a data-target=<%= "\#task-#{task.id}-entries"%> class='list-group-link pointer' data-toggle='collapse'>
@@ -9,17 +10,17 @@
     </a>
 
     <span class='cud-buttons pull-right'>
-      <a href=<%="/tasks/#{task.id}/task_entries/new"%> class='cud-link hidden'>
+      <a href=<%="/tasks/#{task.id}/task_entries/new"%> class='cud-link c-link hidden'>
         <i class='glyphicon glyphicon-plus'></i>
       </a>
-      <a href=<%="/tasks/#{task.id}/edit"%> class='cud-link'>
+      <a href=<%="/tasks/#{task.id}/edit"%> class='cud-link u-link'>
         <i class='glyphicon glyphicon-pencil'></i>
       </a> 
-      <a href=<%="/tasks/#{task.id}"%> data-method="delete" data-confirm="This action is final, please confirm" rel="nofollow" class='cud-link'>
+      <a href=<%="/tasks/#{task.id}"%> data-method="delete" data-confirm="This action is final, please confirm" rel="nofollow" class='d-link'>
         <i class='glyphicon glyphicon-trash'></i>
       </a>
     </span>
-  </span>
+  </div>
 
   <div class='list-group collapse entries-container' id=<%= "task-#{task.id}-entries"%>>
     <% task.task_entries.each do |task_entry| %>
