@@ -51,7 +51,7 @@ class TasksController < LayoutController
 
     respond_to do |format|
       format.html { redirect_to project_path(@project) }
-      format.js { render nothing: true }
+      format.js { render layout: false }
     end
   end
 

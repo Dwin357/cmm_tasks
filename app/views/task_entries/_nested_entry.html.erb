@@ -16,8 +16,8 @@
       <span class='pull-right'>
         <a href=<%="/task_entries/#{task_entry.id}/edit"%> class='u-link'>
           <i class='glyphicon glyphicon-pencil'></i>
-        </a> 
-        <a href=<%="/task_entries/#{task_entry.id}"%> data-method="delete" data-confirm="This action is final, please confirm" rel="nofollow" class='d-link'>
+        </a>
+        <a href=<%="/task_entries/#{task_entry.id}"%> data-remote="true" data-confirm="This action is final, please confirm" data-method="delete" rel="nofollow" class='d-link'>
           <i class='glyphicon glyphicon-trash'></i>
         </a>
       </span>

@@ -1,7 +1,6 @@
 $(document).ready(function() {
   list_group_toggle();
   async_listeners();
-  
 });
 
 var async_listeners = function() {  
@@ -10,9 +9,7 @@ var async_listeners = function() {
   async_get_edit();
   async_post();
   async_patch();
-  async_delete();
 };
-
 
 var async_get_new = function() {
   $('body').on('click', '.c-link', function(event){
@@ -98,19 +95,6 @@ var async_patch = function() {
       $(event.target).closest(".nested-form-group").replaceWith(response["response"]);
     });
   });
-};
-
-var async_delete = function() {
-  set_delete_to_async();
-  $('body').on('click', '.d-link', function(event) {
-    $(event.target).closest(".nested-object").remove();
-  });
-};
-
-var set_delete_to_async = function () {
-  $('.d-link')
-    .removeAttr("data-method")
-    .attr( "data-remote", "true" );
 };
 
 var list_group_toggle = function() {

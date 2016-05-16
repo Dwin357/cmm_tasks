@@ -160,7 +160,7 @@ RSpec.describe TaskEntriesController, type: :controller do
         end
         it 'returns nested entry partial' do
           xhr :put, :update, id:@tsk_entry, task_entry:FactoryGirl.attributes_for(:form_field_values)
-          expect(response).to render_template(partial:"_nested_task")
+          expect(response).to render_template(partial:"_nested_entry")
         end
       end
     end
@@ -193,7 +193,7 @@ RSpec.describe TaskEntriesController, type: :controller do
           end
           it 'renders nested_entry partial' do
             xhr :post, :create, task_id:@task.id, task_entry:FactoryGirl.attributes_for(:form_field_values)
-            expect(response).to render_template(partial:"_nested_task")
+            expect(response).to render_template(partial:"_nested_entry")
           end
         end
       end

@@ -16,7 +16,7 @@
       <a href=<%="/tasks/#{task.id}/edit"%> class='cud-link u-link'>
         <i class='glyphicon glyphicon-pencil'></i>
       </a> 
-      <a href=<%="/tasks/#{task.id}"%> data-method="delete" data-confirm="This action is final, please confirm" rel="nofollow" class='d-link'>
+      <a href=<%="/tasks/#{task.id}"%> data-method="delete" data-remote="true" data-confirm="This action is final, please confirm" rel="nofollow" class='d-link'>
         <i class='glyphicon glyphicon-trash'></i>
       </a>
     </span>

@@ -50,7 +50,7 @@ class TaskEntriesController < LayoutController
     
     respond_to do |format|
       format.html { redirect_to task_path(@task) }
-      format.js { render nothing: true }
+      format.js { render layout: false }
     end
   end
 
