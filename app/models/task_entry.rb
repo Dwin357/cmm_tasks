@@ -89,6 +89,17 @@ class TaskEntry < ActiveRecord::Base
     "#{format_timestamp(start_time)} - #{format_timestamp(end_time)}"
   end
 
+  def display_duration
+    remainder = duration || 0
+    
+    hr        = remainder / 3600
+    remainder = remainder % 3600
+    min       = remainder / 60
+    remainder = remainder % 60
+    second    = remainder
+    "#{hr}:#{min}:#{second}"
+  end
+
   # def opening_time_display
   #   format_timestamp(start_time)
   # end

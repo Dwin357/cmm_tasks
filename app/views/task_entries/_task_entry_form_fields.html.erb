@@ -7,34 +7,24 @@
   <div class='col-xs-2'>
     <input type='time' class='form-control' name='task_entry[s_time]' value="<%= task_entry.s_time%>"/>
   </div>
-  <label for='end_date' class='col-xs-1 control-label'>To</label>
-  <div class='col-xs-3'>
-    <input type='date' class='form-control' name='task_entry[e_date]' value="<%= task_entry.e_date%>"/>
-  </div>
-  <label for='end_at' class='sr-only'>End Time</label>
-  <div class='col-xs-2'>
-    <input type='time' class='form-control' name='task_entry[e_time]' value="<%= task_entry.e_time%>"/>
-  </div>
-</div>    
+
+  <label class='col-xs-1 text-muted duration-display' data-duration="<%= (task_entry.duration * 1000) %>">Timer: <%= task_entry.display_duration%></label>
+  <!-- <input type='text' class='hidden duration-data' name='task_entry[duration]' val="<%=task_entry.duration%>"> -->
 
 
-<div class='form-group'>
-  <label class='col-xs-1 text-muted duration-display' data-timelapsed="0">Timer</label>
+  
+<!-- start and stop buttons not currently functional
+ -->
 
-  <div class='col-xs-1 col-xs-offset-1'>
+  <div class='col-xs-1'>
     <button = type='submit' class='btn timer-start btn-primary start-btn'>Start</button>
   </div>
 
   <div class='col-xs-1'>
     <button = type='submit' class='btn timer-stop btn-danger stop-btn'>Stop</button>
   </div>
-
-  <div class='col-xs-8'>
-    <button = type='submit' class='btn timer-save btn-default save-btn'>Save</button>
-  </div>
-</div>
-
-
+  
+</div>    
 
 
 <div class='form-group'>
