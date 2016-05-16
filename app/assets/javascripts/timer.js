@@ -4,11 +4,13 @@ $(document).ready(function() {
 });
 
 var timerIncrementor = function() {  
-  $('.duration-data.active').each(function(){
-    // var duration = $(this).val();
+  $('.duration-display.active').each(function(){
+    var duration = $(this).data("duration");
     duration = duration + 1;
-    $(this).val(duration);
-    $(this).siblings(".duration-display").html(formatDisplayTime(duration));
+
+    $(this).data("duration", duration);
+    $(this).closest('.form-group').children(".duration-data").val(duration);
+    $(this).html(formatDisplayTime(duration));
   });
 };
 
@@ -23,19 +25,15 @@ var formatDisplayTime = function(seconds) {
 };
 
 var setTimerAsync = function(){
-  // asyncSave();
   asyncStart();
   asyncStop();
 };
-
-
-
-// start and stop buttons not currently functional
 
 var asyncStart = function (){
   $('body').on('click', '.timer-start', function(event){
     event.preventDefault();
     $(this).closest('.form-group').children(".duration-display").addClass("active");
+    $(this).closest('.form-group').children(".duration-data").addClass("updated");
   });
 };
 
@@ -45,5 +43,3 @@ var asyncStop = function() {
     $(this).closest('.form-group').children(".duration-display").removeClass("active");
   });
 };
-
-// var asyncSave = function

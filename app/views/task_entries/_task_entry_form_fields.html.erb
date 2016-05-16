@@ -8,13 +8,8 @@
     <input type='time' class='form-control' name='task_entry[s_time]' value="<%= task_entry.s_time%>"/>
   </div>
 
-  <label class='col-xs-1 text-muted duration-display' data-duration="<%= (task_entry.duration * 1000) %>">Timer: <%= task_entry.display_duration%></label>
-  <!-- <input type='text' class='hidden duration-data' name='task_entry[duration]' val="<%=task_entry.duration%>"> -->
-
-
-  
-<!-- start and stop buttons not currently functional
- -->
+  <label class='col-xs-1 text-muted duration-display' data-duration="<%= task_entry.duration %>">Timer: <%= task_entry.display_duration%></label>
+  <input type='text' class='hidden duration-data' name='task_entry[duration]' value="<%= task_entry.duration %>">
 
   <div class='col-xs-1'>
     <button = type='submit' class='btn timer-start btn-primary start-btn'>Start</button>

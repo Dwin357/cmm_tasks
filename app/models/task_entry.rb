@@ -50,7 +50,7 @@ class TaskEntry < ActiveRecord::Base
 
   def set_default_model_values
     self.start_time = Time.now.utc if (self.new_record? && self.start_time.nil?)
-    self.duration = 3600 if (self.new_record? && self.duration.nil?)
+    self.duration = 0 if (self.new_record? && self.duration.nil?)
   end
 
   ###########  helpers for the form attr_accessors  ################
@@ -91,7 +91,7 @@ class TaskEntry < ActiveRecord::Base
 
   def display_duration
     remainder = duration || 0
-    
+
     hr        = remainder / 3600
     remainder = remainder % 3600
     min       = remainder / 60

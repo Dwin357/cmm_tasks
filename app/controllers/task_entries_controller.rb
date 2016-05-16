@@ -103,6 +103,6 @@ class TaskEntriesController < LayoutController
 
   private
   def task_entry_params
-    params.require(:task_entry).permit(:note, :s_time, :s_date, :e_time, :e_date)
+    params.require(:task_entry).permit(:note, :s_time, :s_date, :duration)
   end
 end
