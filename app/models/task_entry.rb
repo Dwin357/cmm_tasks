@@ -89,6 +89,8 @@ class TaskEntry < ActiveRecord::Base
     "#{format_timestamp(start_time)} - #{format_timestamp(end_time)}"
   end
 
+
+
   def display_duration
     remainder = duration || 0
 

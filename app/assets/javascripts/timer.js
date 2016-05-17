@@ -33,7 +33,8 @@ var asyncStart = function (){
   $('body').on('click', '.timer-start', function(event){
     event.preventDefault();
     $(this).closest('.form-group').children(".duration-display").addClass("active");
-    $(this).closest('.form-group').children(".duration-data").addClass("updated");
+
+    // var request = $.post
   });
 };
 
